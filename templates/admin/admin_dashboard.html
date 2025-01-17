@@ -1,0 +1,27 @@
+{%extends 'base.html' %}
+{%block body%}
+    <div class="sidebar">
+        <h2>Admin Dashboard</h2>
+        <a href="{{ url_for('admin.admin_dashboard') }}">Dashboard</a>
+        <a href="{{url_for('admin.manage_events')}}">Manage Events</a>
+        <a href="{{url_for('admin.create_events')}}">Create Events</a>
+        <a href="{{url_for('events_file.view_registrations')}}">Manage Users</a>
+        <a href="/">Logout</a>
+    </div>
+
+    <div class="admin_content">
+        
+
+        {%block content%}
+        <div class="header">
+            <h1>Admin Dashboard</h1>
+        </div>
+        <section class="admin_section">
+            <h2>Admin Statistics</h2>
+            <p>Total Users: {{ users_count }}</p>
+            <p>Total Events: {{ events_count }}</p>
+            <p>Total Registrations: {{ registrations_count }}</p>
+        </section>
+        {%endblock content%}
+    </div>
+{%endblock body%}

@@ -1,0 +1,39 @@
+{% extends "admin/admin_dashboard.html" %}
+
+{% block content %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/registrations.css') }}">
+    <h1>Event Registrations</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>Event Title</th>
+                <th>Registration Date</th>
+                <th>Remarks</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reg, user_name, user_email, event_title in registrations %}
+            <tr>
+                <td>{{ user_name }}</td>
+                <td>{{ user_email }}</td>
+                <td>{{ event_title }}</td>
+                <td>{{ reg.registration_date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                <td>{{ reg.remarks or 'N/A' }}</td>
+                <td>
+                    <!-- Edit Button -->
+                    <a href="{{ url_for('admin.edit_registration', registration_id=reg.id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    
+                    <!-- Delete Button -->
+                    <form action="{{ url_for('admin.delete_registration', registration_id=reg.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

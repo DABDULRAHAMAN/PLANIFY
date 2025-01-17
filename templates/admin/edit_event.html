@@ -1,0 +1,32 @@
+<!-- templates/admin/edit_event.html -->
+{% extends "admin/admin_dashboard.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/manage_events.css') }}">
+<div class="container edit_event mt-5">
+    <h1 class="mb-4">Edit Event</h1>
+    <form action="{{ url_for('admin.edit_event', event_id=event.id) }}" method="POST" enctype="multipart/form-data">
+        <div class="form-group mb-3">
+            <label for="title">Event Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ event.title }}" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="short_desc">Short Description</label>
+            <input type="text" class="form-control" id="short_desc" name="short_desc" value="{{ event.short_desc }}" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" name="description">{{ event.description }}</textarea>
+        </div>
+        <div class="form-group mb-3">
+            <label for="date">Event Date and Time</label>
+            <input type="datetime-local" class="form-control" id="date" name="date" value="{{ event.date.strftime('%Y-%m-%dT%H:%M') }}" required>
+        </div>
+        <div class="form-group mb-3">
+            <label for="photo">Photo</label>
+            <input type="file" class="form-control" id="photo" name="photo">
+        </div>
+        <button type="submit" class="but1 btn btn-success">Update Event</button>
+    </form>
+</div>
+{% endblock content %}

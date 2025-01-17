@@ -1,0 +1,144 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fdf6e3; /* Soft cream background */
+    color: #000; /* Black text */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full-screen height */
+}
+
+/* Container Styling */
+.container1 {
+    background: #ffffff; /* White card background */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+    border-radius: 100px; /* Rounded corners */
+    padding: 50px; /* Increased padding for more height */
+    max-width: 500px; /* Keep width compact */
+    width: 95%; /* Responsive for smaller screens */
+    text-align: center;
+    min-height: 400px; /* Ensures a taller form */
+    display: flex; /* Center content vertically */
+    flex-direction: column; /* Align items vertically */
+    justify-content: center; /* Center vertically inside the container */
+}
+
+.container1:hover {
+    transform: scale(1.02); /* Subtle zoom effect */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Enhanced hover shadow */
+}
+
+/* Page Title Styling */
+h2 {
+    font-size: 26px; /* Slightly larger heading */
+    color: #000; /* Black heading text */
+    margin-bottom: 15px; /* Reduced spacing below heading */
+    font-weight: bold;
+    text-transform: uppercase; /* Capitalized heading */
+    letter-spacing: 1px; /* Slightly spaced letters */
+}
+
+/* Form Styling */
+.login-form {
+    text-align: left; /* Align form elements to the left */
+}
+
+.login-form .form-label {
+    font-size: 14px; /* Label font size */
+    font-weight: 600; /* Semi-bold for emphasis */
+    color: #333; /* Slightly darker text */
+    margin-bottom: 5px; /* Reduced margin */
+    display: block; /* Ensure proper spacing */
+}
+
+.login-form .form-control {
+    width: 100%;
+    border: 1px solid #ccc; /* Softer border */
+    border-radius: 6px;
+    padding: 12px; /* Comfortable padding */
+    font-size: 15px; /* Slightly larger font */
+    background: #fdf6e3; /* Cream input background */
+    color: #333; /* Darker input text */
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-form .form-control:focus {
+    border-color: #B71C1C; /* Deep red border on focus */
+    box-shadow: 0 0 8px rgba(183, 28, 28, 0.2); /* Subtle red glow */
+    outline: none;
+}
+
+/* Red Login Button Styling */
+.btn-primary {
+    background-color: #FFCDD2; /* Light reddish background */
+    color: #B71C1C; /* Deep red text */
+    border: none; /* Remove border */
+    font-size: 16px; /* Larger button font for better visibility */
+    font-weight: bold; /* Bold for emphasis */
+    padding: 12px; /* Comfortable padding */
+    letter-spacing: 1.5px; /* Elegant spacing */
+    text-transform: uppercase; /* Uniform look */
+    transition: all 0.2s ease-in-out; /* Smooth hover effect */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    width: 100%; /* Full-width button */
+    cursor: pointer; /* Pointer cursor */
+    outline: none; /* Remove outline */
+    border-radius: 8px; /* Softer corners */
+}
+
+.btn-primary:hover {
+    background-color: #E57373; /* Brighter red on hover */
+    color: #fff; /* White text for strong contrast */
+    transform: translateY(-2px); /* Subtle hover lift */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.btn-primary:active {
+    transform: translateY(0); /* Reset lift on click */
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); /* Reduced shadow on click */
+}
+
+/* Flash Messages */
+.alert {
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.alert-success {
+    background-color: #d4edda; /* Light green for success */
+    color: #155724; /* Dark green text */
+    border: 1px solid #c3e6cb; /* Green border */
+}
+
+.alert-danger {
+    background-color: #f8d7da; /* Light red for error */
+    color: #721c24; /* Dark red text */
+    border: 1px solid #f5c6cb; /* Red border */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+    .container1 {
+        padding: 20px; /* Reduced padding for smaller screens */
+    }
+
+    h2 {
+        font-size: 22px; /* Adjusted heading size */
+    }
+
+    .login-form .form-control {
+        font-size: 13px; /* Smaller font for compactness */
+    }
+
+    .btn-primary {
+        font-size: 14px; /* Adjusted button font size */
+        padding: 10px; /* Adjusted padding */
+    }
+}

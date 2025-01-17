@@ -1,0 +1,141 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f5e6; /* Light cream background */
+    margin: 0;
+    padding: 0;
+    color: #4a4a4a; /* Soft dark gray for text */
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+/* Form Container */
+form {
+    background-color: #fff; /* White for contrast */
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    max-width: 800px; /* Centered and width controlled */
+}
+
+/* Form Group */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #4a4a4a;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+    border-color: #007bff; /* Highlight border on focus */
+    background-color: #fff;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
+}
+
+/* Button Group */
+.button-group {
+    display: flex; /* Use flexbox for alignment */
+    justify-content: center; /* Align buttons horizontally at the center */
+    gap: 20px; /* Space between buttons */
+    margin-top: 20px; /* Space above the buttons */
+}
+
+/* Button Group */
+.button-group {
+    display: flex; /* Use flexbox for alignment */
+    justify-content: center; /* Align buttons horizontally at the center */
+    gap: 20px; /* Space between buttons */
+    margin-top: 20px; /* Space above the buttons */
+}
+
+/* Update Button */
+button.btn-success {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    width: 120px; /* Fixed width */
+    height: 45px; /* Fixed height */
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 15px; /* Slightly raise the Update button */
+}
+
+button.btn-success:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+/* Cancel Button */
+a.btn-secondary {
+    display: inline-block; /* Ensures it aligns like a button */
+    text-align: center;
+    background-color: #6c757d;
+    color: #fff;
+    width: 120px; /* Same width as Update button */
+    height: 45px; /* Same height as Update button */
+    line-height: 45px; /* Center text vertically */
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+a.btn-secondary:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    form {
+        padding: 20px;
+        width: 100%;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    button.btn-success,
+    a.btn-secondary {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}

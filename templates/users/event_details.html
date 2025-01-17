@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/event_details.css') }}">
+
+    <div class="event-detail-container">
+        <!-- Event Title -->
+        <h1>{{ event.title }}</h1>
+
+        <div class="event-detail-content">
+            <!-- Event Image -->
+            <div class="event-image-placeholder">
+                {% if event.photo %}
+                    <img src="{{ url_for('static', filename='uploads/' + event.photo) }}" alt="Event Photo">
+                {% else %}
+                    <img src="{{ url_for('static', filename='uploads/default.jpg') }}" alt="Default Event Photo">
+                {% endif %}
+            </div>
+
+            <!-- Event Description -->
+            <p>{{ event.description }}</p>
+
+            <!-- Event Date -->
+            <h3>Date: {{ event.date.strftime('%Y-%m-%d %H:%M:%S') }}</h3>
+
+            <!-- Event Location (if applicable) -->
+            {% if event.location %}
+                <h3>Location: {{ event.location }}</h3>
+            {% endif %}
+        </div>
+
+        <a href="{{ url_for('events_file.event_registration_page', event_id=event.id) }}" class="register-button">Register</a>
+    </div>  
+{% endblock body %}

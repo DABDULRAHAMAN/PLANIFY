@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <!-- Link to the new CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/caraousel.css') }}">
+
+    <!-- Navbar Section -->
+    {% include 'users/navbar.html' %}
+
+    <!-- Page Wrapper -->
+    <!-- <div class="page-wrapper"> -->
+        <!-- Main Content Section -->
+        <div class="main-container">
+            <!-- Carousel Section -->
+            <div class="carousel-container">
+                <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{{ url_for('static', filename='uploads/salsa.jpg') }}" 
+                                 class="d-block w-100 carousel-image" 
+                                 alt="Planify Event 1" loading="lazy">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='uploads/date_night.jpg') }}" 
+                                 class="d-block w-100 carousel-image" 
+                                 alt="Planify Event 2" loading="lazy">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='uploads/diljit.jpg') }}" 
+                                 class="d-block w-100 carousel-image" 
+                                 alt="Planify Event 3" loading="lazy">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='uploads/E1.avif') }}" 
+                                 class="d-block w-100 carousel-image" 
+                                 alt="Planify Event 3" loading="lazy">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ url_for('static', filename='uploads/E2.avif') }}" 
+                                 class="d-block w-100 carousel-image" 
+                                 alt="Planify Event 3" loading="lazy">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button> 
+                </div>
+            </div>
+
+            <!-- Details Section -->
+            <div class="details-section">
+                <h3 class="about-heading">Planify? </h3>
+                <p>Planify is an innovative event management platform designed to streamline the process of planning, organizing, and managing events. It offers a range of tools and features that simplify tasks such as event registration, attendee management, ticketing, and vendor coordination. With Planify, event organizers can efficiently handle all aspects of their events, whether small gatherings or large-scale conferences, ensuring a seamless experience for all involved.</p>
+                <p>The platform is built with user experience in mind, making it accessible and easy to use for both experienced event planners and beginners. Planify provides a collaborative space where organizers, guests, and vendors can interact and coordinate efforts to make every event a success. By offering real-time analytics and customizable event options, Planify helps organizers make data-driven decisions, ensuring that each event is well-executed and memorable.</p>
+                <p>Planify's mission is to take the stress out of event planning by providing a comprehensive and intuitive solution. With its robust features, secure payment systems, and responsive customer support, Planify has become a trusted partner for thousands of event organizers around the world, making it easier than ever to create, manage, and enjoy successful events.</p>
+            </div>
+        <!-- </div> -->
+
+        <!-- Footer Section -->
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2024 PLANIFY. All Rights Reserved.</p>
+                <p>
+                    <a href="#" class="footer-link">Privacy Policy</a> | 
+                    <a href="#" class="footer-link">Terms of Service</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='users/dashboard.js') }}"></script>
+{% endblock body %}

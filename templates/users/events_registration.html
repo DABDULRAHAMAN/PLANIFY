@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/registration.css') }}">
+
+    <div class="registration-container">
+        <h1>Register for Event</h1>
+        <form action="{{ url_for('events_file.register_event_user') }}" method="POST">
+            <input type="hidden" name="event_id" value="{{ event.id }}">
+            
+            <div class="form-group">
+                <label for="name">Full Name <span class="required">*</span></label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address <span class="required">*</span></label>
+                <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+            </div>
+            <div class="form-group">
+                <label for="remarks">Remarks (Optional)</label>
+                <textarea id="remarks" name="remarks" placeholder="Any additional comments"></textarea>
+            </div>
+        
+            <button type="submit" class="submit-btnn">Register</button>
+        </form>        
+    </div>
+{% endblock body %}
+

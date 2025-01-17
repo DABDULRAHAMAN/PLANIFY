@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    {% include 'users/navbar.html' %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/events.css') }}">
+
+    <div class="event-container">
+        <div class="event-cards">
+            {% for event in events %}
+            <div class="event-card">
+                <!-- Event Image -->
+                <div class="event-image-placeholder">
+                    {% if event.photo %}
+                        <img src="{{ url_for('static', filename='uploads/' + event.photo) }}" alt="Event Photo">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='uploads/default.jpg') }}" alt="Default Event Photo">
+                    {% endif %}
+                </div>
+
+                <div class="event-details">
+                    <!-- Event Title -->
+                    <h3>{{ event.title }}</h3>
+
+                    <!-- Event Short Description -->
+                    <p>{{ event.short_desc }}</p>
+
+                    <!-- Event Date (formatted) -->
+                    <p class="date">{{ event.date.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+
+                    <!-- Link to Event Details Page -->
+                    <a href="{{ url_for('events_file.event_details', event_id=event.id) }}" class="details-link">View Details</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 PLANIFY. All Rights Reserved.</p>
+            <p>
+                <a href="#" class="footer-link">Privacy Policy</a> | 
+                <a href="#" class="footer-link">Terms of Service</a>
+            </p>
+        </div>
+    </footer>
+{% endblock body %}
+

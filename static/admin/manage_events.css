@@ -1,0 +1,153 @@
+/* General container styling */
+.container {
+    background: #ffffff; /* White background for contrast */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border-radius: 8px;
+    padding: 30px;
+    margin: 20px auto; /* Centered with margin */
+    max-width: 1200px; /* Limit width for large screens */
+    width: 90%; /* Responsive width */
+}
+
+/* Page title styling */
+h1 {
+    text-align: center;
+    color: #343a40; /* Dark gray for titles */
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffff; /* Ensure a clean table background */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Subtle table shadow */
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden;
+}
+
+thead {
+    background-color: #343a40; /* Dark background for header */
+    color: #ffffff; /* White text for header */
+}
+
+thead th {
+    text-align: center;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1; /* Light gray hover effect */
+}
+
+tbody td {
+    text-align: center;
+    padding: 12px 10px;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+/* Event photo styling */
+.event-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for images */
+    object-fit: cover;
+}
+
+/* Button Styling */
+.but1{
+    background-color: #4CAF50; /* Green for edit */
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.btn-warning {
+    background-color: #ffc107; /* Yellow for edit */
+    color: #000; /* Black text */
+    border: none;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800; /* Darker yellow */
+    transform: scale(1.05);
+}
+
+.btn-danger {
+    background-color: #dc3545; /* Red for delete */
+    color: #fff; /* White text */
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c82333; /* Darker red */
+    transform: scale(1.05);
+}
+
+/* Form inside table cell */
+form {
+    display: inline;
+}
+
+/* Styling for empty state */
+.no-events {
+    margin-top: 20px;
+    text-align: center;
+    color: #6c757d; /* Subtle gray text */
+    font-style: italic;
+    font-size: 16px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    table {
+        font-size: 12px; /* Reduce text size for smaller screens */
+    }
+
+    tbody td {
+        padding: 8px; /* Adjust padding for compact view */
+    }
+
+    .event-photo {
+        width: 60px;
+        height: 60px; /* Adjust image size for responsiveness */
+    }
+
+    .btn {
+        padding: 6px 10px; /* Adjust button size */
+        font-size: 10px;
+    }
+}

@@ -1,0 +1,90 @@
+/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fdf6e3; /* Soft cream color */
+    color: #000; /* Solid black for text */
+    margin: 0;
+    padding: 0;
+}
+
+/* Event Detail Container */
+.event-detail-container {
+    width: 50%;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+/* Event Title */
+.event-detail-container h1 {
+    font-size: 32px;
+    color: #000; /* Black title */
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Event Image */
+.event-image-placeholder {
+    width: 70%;
+    height: auto; /* Adjust to maintain aspect ratio */
+    max-height: 300px; /* Reduce maximum height */
+    background-color: #e0e0e0;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-left: 120px;
+
+}
+
+.event-image-placeholder img {
+    width: 100%; /* Make image fit the container width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Ensure full image visibility */
+}
+
+
+/* Event Description */
+.event-detail-content p {
+    font-size: 18px;
+    color: #000; /* Solid black for description */
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Event Date Styling */
+.event-detail-content h3 {
+    font-size: 20px;
+    color: #000; /* Black for consistency */
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.event-detail-content h3:first-of-type {
+    font-size: 22px;
+    color: #d35400; /* Highlight date in orange */
+    background: #fef2e0; /* Subtle cream background for emphasis */
+    padding: 8px;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+/* Register Button */
+.register-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #000; /* Solid black button */
+    color: #ffffff; /* White text for contrast */
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.register-button:hover {
+    background-color: #444; /* Slightly lighter black on hover */
+    transform: translateY(-2px);
+}

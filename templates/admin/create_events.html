@@ -1,0 +1,40 @@
+<!-- templates/admin/manage_events.html -->
+{% extends "admin/admin_dashboard.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/create_events.css') }}">
+
+<div class="container mt-4">
+    <h2>Create Event</h2>
+    <form method="POST" action="{{ url_for('admin.create_events') }}" enctype="multipart/form-data">
+        <!-- Event Title -->
+        <div class="mb-3">
+            <label for="title" class="form-label">Event Title</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+
+        <!-- Event Description -->
+        <div class="mb-3">
+            <label for="short_desc" class="form-label">Event Description</label>
+            <textarea class="form-control" id="short_desc" name="short_desc" rows="4" required></textarea>
+        </div>
+
+        <!-- Event Date -->
+        <div class="mb-3">
+            <label for="date" class="form-label">Event Date</label>
+            <input type="datetime-local" class="form-control" id="date" name="date" required>
+        </div>
+
+        <!-- Event Full Description -->
+        <div class="mb-3">
+            <label for="description" class="form-label">Event Full Description</label>
+            <textarea class="form-control" id="description" name="description" rows="6"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="photo">Event Photo</label>
+            <input type="file" id="photo" name="photo" class="form-control" accept="image/*">
+        </div>
+        <button type="submit" class="btn btn-primary">Create Event</button>
+    </form>
+</div>
+{% endblock content%}

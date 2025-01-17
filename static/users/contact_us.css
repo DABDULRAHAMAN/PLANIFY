@@ -1,0 +1,104 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: auto;
+    overflow-y: auto;
+    background-color: #fdf5e6; /* Light cream background */
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+}
+
+.container {
+    max-width: 1140px;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: none;
+    background: none;
+    color: #333;
+}
+
+.about-us {
+    padding: 30px 15px;
+    text-align: center;
+}
+
+h1, h2, h3, h5 {
+    color: #444;
+    margin: 15px 0;
+}
+
+h1 {
+    font-size: 2.2em;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+h5 {
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+p {
+    font-size: 1em;
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+img {
+    border-radius: 8px;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+/* Simplified Section Styling */
+.college-details, .professor-details {
+    margin: 20px 0;
+    padding: 10px 0;
+}
+
+/* Team Section Cards */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.col-md-4 {
+    flex: 1 1 calc(33.333% - 40px);
+    max-width: 300px;
+    text-align: center;
+    padding: 15px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.col-md-4 img {
+    margin-bottom: 10px;
+}
+
+.col-md-4:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

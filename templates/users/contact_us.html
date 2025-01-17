@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block body %}
+    {% include 'users/navbar.html' %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/contact_us.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+
+    <div class="container about-us mt-5" style="width: 80%;">
+        <!-- <h1 class="text-center mb-4">About Us</h1> -->
+
+        <!-- College Details -->
+        <div class="college-details mb-5 text-center">
+            <img src="{{ url_for('static', filename='uploads/bmsce.webp') }}" alt="BMS College of Engineering Logo" class="img-fluid mb-3" style="max-width: 250px;">
+            
+            <p>Founded in 1946, B. M. S. College of Engineering (BMSCE) stands as an early trailblazer in engineering education. Envisioned by the late Sri B. M. Sreenivasaiah, the college was established in Basavanagudi, with the ambition of becoming a cornerstone of higher education in Bengaluru. This dream was passionately pursued by his son, the late Sri B. S. Narayan, who was committed to providing quality education to students globally.
+            </p> 
+            <p> Today, BMSCE has grown to offer 18 undergraduate and 13 postgraduate programs across various engineering and management fields. The college boasts a team of highly qualified faculty and staff, dedicated to delivering outstanding education while keeping pace with the future.</p>
+        </div>
+
+        <!-- Professor Details -->
+        <div class="professor-details text-center mb-5">
+            <h3>Under Guidance</h3>
+            <img src="{{ url_for('static', filename='uploads/PROF.jpg') }}" alt="Professor" class="img-fluid rounded mb-3" style="max-width: 150px;">
+            <h5> Dr. Shubha Rao V</h5>
+            <p> Associate Professor</p>
+            <p>Email: <a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox?compose=CllgCJfrKxhdnLttfzdwznsHFrDjKqScLSBWnqkgrVvSTcJsstGLFpbBGfftqzRRMvlKBDjJwBq">shubha.ise@bmsce.ac.in</a></p>
+        </div>
+
+        <!-- Team Details -->
+        <div class="team-details">
+            <h2 class="text-center">Meet Our Team</h2>
+            <div class="row text-center mt-4">
+                <div class="col-md-4">
+                    <img src="{{ url_for('static', filename='uploads/aaryan.jpg') }}" alt="Team Member 1" class="img-fluid rounded mb-3" style="max-width: 150px;">
+                    <h5>Aaryan Agarwal</h5>
+                    <p>Role: As the Project Lead, Aaryan Agarwal ensures the project runs smoothly and deadlines are met. He handles backend development, managing the server-side logic and database integration. Additionally, he contributes as a UI/UX designer, focusing on creating an intuitive and visually appealing interface for users.</p>
+                </div>
+                <div class="col-md-4">
+                    <img src="{{ url_for('static', filename='uploads/arpit.jpg') }}" alt="Team Member 2" class="img-fluid rounded mb-3" style="max-width: 150px;">
+                    <h5>Arpit Sharma</h5>
+                    <p>Role: Arpit Sharma is the Frontend Developer, designing and developing the website’s user interface to be responsive and interactive. He also oversee Quality Assurance, testing the project for bugs and ensuring it meets standards. Additionally, he maintain technical documentation and user manuals.</p>
+                </div>
+                <div class="col-md-4">
+                    <img src="{{ url_for('static', filename='uploads/abdul.jpg') }}" alt="Team Member 3" class="img-fluid rounded mb-3" style="max-width: 150px;">
+                    <h5>D Abdul Rahaman</h5>
+                    <p>Role: D Abdul Rahaman manages the database, ensuring its integrity and performance. He also design the system architecture to ensure scalability and robustness. As the Security Specialist, he implement measures to protect the project from vulnerabilities and attacks.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2024 PLANIFY. All Rights Reserved.</p>
+                <p>
+                    <a href="#" class="footer-link">Privacy Policy</a> | 
+                    <a href="#" class="footer-link">Terms of Service</a>
+                </p>
+            </div>
+        </footer>
+
+{% endblock body %}

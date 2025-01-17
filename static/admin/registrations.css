@@ -1,0 +1,133 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fdf6e3; /* Light cream background */
+    color: #000; /* Black text */
+    margin: 0;
+    padding: 0;
+}
+
+/* Container Styling */
+.container {
+    background: #ffffff; /* White background */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 30px;
+    margin: 20px auto;
+    max-width: 1000px; /* Slightly smaller max-width for user tables */
+    width: 90%;
+    text-align: center;
+}
+
+/* Page Title */
+h1 {
+    text-align: center;
+    color: #444; /* Slightly darker gray for variety */
+    font-weight: bold;
+    margin-bottom: 30px;
+    font-size: 26px;
+    text-transform: capitalize;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #000; /* Black border around the entire table */
+}
+
+thead {
+    background-color: #6c757d; /* Medium gray for headers */
+    color: #ffffff;
+}
+
+thead th {
+    text-align: center;
+    padding: 14px;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid #000; /* Black border between header columns */
+}
+
+tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+tbody tr:hover {
+    background-color: #f5f5f5; /* Light hover effect */
+}
+
+tbody td {
+    text-align: center;
+    padding: 14px;
+    font-size: 14px;
+    color: #444;
+    border: 1px solid #000; /* Black border between body columns */
+}
+
+/* Button Styling */
+.btn {
+    text-decoration: none;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: inline-block;
+    margin: 5px;
+}
+
+.btn-primary {
+    background-color: #007bff; /* Blue for edit */
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.btn-danger {
+    background-color: #dc3545; /* Red */
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+/* No Data Styling */
+.no-users {
+    margin-top: 20px;
+    text-align: center;
+    color: #6c757d; /* Gray */
+    font-style: italic;
+    font-size: 16px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    .btn {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+}

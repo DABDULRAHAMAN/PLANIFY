@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block body %}
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/admin_login.css') }}">
+
+<div class="container1 mt-5">
+    <h2 class="text-center mb-4">Admin Login</h2>
+    <form action="{{ url_for('admin.admin_login') }}" method="POST" class="login-form">
+        <div class="mb-3">
+            <label for="admin_id" class="form-label">Admin ID</label>
+            <input type="text" class="form-control" id="admin_id" name="admin_id" placeholder="Enter Admin ID" required>
+        </div>
+        <div class="mb-3">
+            <label for="admin_password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="admin_password" name="admin_password" placeholder="Enter Password" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+    </form>
+    
+
+</div>
+
+{% endblock body %}

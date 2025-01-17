@@ -1,0 +1,147 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&display=swap'); /* Lora font */
+
+/* Global Styles */
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main Container */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 110px; /* Adjust to prevent overlap with navbar */
+    padding: 0;
+    overflow-y: auto; /* Enables scrolling for content overflow */
+    height: auto; /* Let the content define the height */
+}
+
+/* Carousel Styling */
+.carousel-container {
+    width: 100%;
+    margin-bottom: 40px; /* Space between carousel and details */
+}
+
+.carousel {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    width: 80%; /* Carousel occupies 80% of the viewport width */
+    height: 555px; /* Height optimized for visuals */
+    margin: 0 auto; /* Centered horizontally */
+}
+
+.carousel-image {
+    width: 80%;
+    height: 80%;
+    object-fit: cover; /* Ensures the image fills the container without distortion */
+    object-position: center;
+}
+
+/* Carousel Navigation Buttons */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: white;
+    background-color: transparent;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+button:hover {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+/* Details Section */
+.details-section {
+    width: 80%; /* Aligned for readability */
+    padding: 30px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-top: 30px; /* Space between carousel and details */
+    font-family: 'Lora', serif;
+    color: #333;
+    box-shadow: none;
+    background: none;
+}
+
+.about-heading {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.details-section p {
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+/* Footer Styling */
+footer {
+    position: relative;
+    margin-top: 20px;
+    padding: 10px 0;
+    background-color: #111;
+    color: #ddd;
+    text-align: center;
+    font-size: 14px;
+    width: 100%;
+    clear: both; /* Ensures footer is placed after all content */
+}
+
+footer.visible {
+    visibility: visible; /* Show footer when scrolling down */
+    opacity: 1; /* Fade-in effect */
+}
+
+.footer-content p {
+    margin: 5px 0;
+}
+
+.footer-link {
+    color: #ff9800;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+    color: #ff6600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .carousel {
+        width: 100%; /* Full width on smaller screens */
+        height: 300px; /* Adjusted height for better appearance */
+    }
+
+    .details-section {
+        width: 95%; /* Almost full width for smaller screens */
+        padding: 20px;
+    }
+
+    .footer-content {
+        font-size: 12px; /* Smaller text for compact design */
+    }
+}

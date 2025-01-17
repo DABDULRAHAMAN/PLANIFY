@@ -1,0 +1,52 @@
+<!-- templates/admin/manage_events.html -->
+{% extends "admin/admin_dashboard.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/manage_events.css') }}">
+<div class="container manage_events mt-5">
+    <h1 class="mb-4">Manage Events</h1>
+
+    <table class="table table-bordered events-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Photo</th>
+                <th>Title</th>
+                <th>Short Description</th>
+                <th>Description</th>
+                <th>Date and Time</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+            <tr>
+                <td>{{ event.id }}</td>
+                <td>
+                    {% if event.photo %}
+                    <img src="{{ url_for('static', filename='uploads/' + event.photo) }}" alt="{{ event.title }}" class="event-photo">
+                    {% else %}
+                    <span>No Photo</span>
+                    {% endif %}
+                </td>
+                <td>{{ event.title }}</td>
+                <td>{{ event.short_desc }}</td>
+                <td>{{ event.description }}</td>
+                <td class="date-column">{{ event.date.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td>
+                    <!-- Action Buttons -->
+                    <a href="{{ url_for('admin.edit_event', event_id=event.id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{{ url_for('admin.delete_event', event_id=event.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if not events %}
+    <p class="no-events">No events available.</p>
+    {% endif %}
+</div>
+{% endblock content %}
