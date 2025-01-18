@@ -395,6 +395,17 @@ footer.visible {
     }
 }
 
+.alert {
+    display: block !important;
+    visibility: visible !important;
+    color: #856404;
+    background-color: #fff3cd;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #ffeeba;
+    border-radius: 4px;
+}
+
 
 
 

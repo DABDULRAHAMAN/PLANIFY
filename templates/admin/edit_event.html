@@ -23,8 +23,12 @@
             <input type="datetime-local" class="form-control" id="date" name="date" value="{{ event.date.strftime('%Y-%m-%dT%H:%M') }}" required>
         </div>
         <div class="form-group mb-3">
-            <label for="photo">Photo</label>
-            <input type="file" class="form-control" id="photo" name="photo">
+            <label for="short_photo">Photo</label>
+            <input type="file" class="form-control" id="short_photo" name="short_photo">
+        </div>
+        <div class="form-group mb-3">
+            <label for="long_photo">Banner</label>
+            <input type="file" class="form-control" id="long_photo" name="long_photo">
         </div>
         <button type="submit" class="but1 btn btn-success">Update Event</button>
     </form>

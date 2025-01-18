@@ -11,8 +11,8 @@
             <div class="event-card">
                 <!-- Event Image -->
                 <div class="event-image-placeholder">
-                    {% if event.photo %}
-                        <img src="{{ url_for('static', filename='uploads/' + event.photo) }}" alt="Event Photo">
+                    {% if event.short_photo%}
+                        <img src="{{ url_for('static', filename='uploads/' + event.short_photo) }}" alt="Event Photo">
                     {% else %}
                         <img src="{{ url_for('static', filename='uploads/default.jpg') }}" alt="Default Event Photo">
                     {% endif %}

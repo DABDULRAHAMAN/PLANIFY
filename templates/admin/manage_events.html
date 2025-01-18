@@ -11,6 +11,7 @@
             <tr>
                 <th>ID</th>
                 <th>Photo</th>
+                <th>banner</th>
                 <th>Title</th>
                 <th>Short Description</th>
                 <th>Description</th>
@@ -23,8 +24,15 @@
             <tr>
                 <td>{{ event.id }}</td>
                 <td>
-                    {% if event.photo %}
-                    <img src="{{ url_for('static', filename='uploads/' + event.photo) }}" alt="{{ event.title }}" class="event-photo">
+                    {% if event.short_photo %}
+                    <img src="{{ url_for('static', filename='uploads/' + event.short_photo) }}" alt="{{ event.title }}" class="event-photo">
+                    {% else %}
+                    <span>No Photo</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if event.long_photo %}
+                    <img src="{{ url_for('static', filename='uploads/' + event.long_photo) }}" alt="{{ event.title }}" class="event-photo">
                     {% else %}
                     <span>No Photo</span>
                     {% endif %}

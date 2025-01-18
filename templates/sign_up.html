@@ -12,5 +12,14 @@
         <input type="password" placeholder="Password" id="password" name="password"/>
         <button>Sign Up</button>
     </form>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'warning' %}
+                <p style="color: red;">{{ message }}</p> <!-- Debug with inline styling -->
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
 </div>
 {% endblock sign_in %}

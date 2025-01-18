@@ -21,7 +21,8 @@ class Event(db.Model):
     short_desc=db.Column(db.String(100),nullable=False)
     description = db.Column(db.Text, nullable=True)  
     date = db.Column(db.DateTime, nullable=False)
-    photo = db.Column(db.String(200), nullable=True)
+    short_photo = db.Column(db.String(200), nullable=True)
+    long_photo = db.Column(db.String(200), nullable=True)
     registrations = db.relationship('Registration', backref='event', lazy=True)
 
 

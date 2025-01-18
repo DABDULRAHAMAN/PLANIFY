@@ -12,8 +12,8 @@
         <div class="event-detail-content">
             <!-- Event Image -->
             <div class="event-image-placeholder">
-                {% if event.photo %}
-                    <img src="{{ url_for('static', filename='uploads/' + event.photo) }}" alt="Event Photo">
+                {% if event.long_photo %}
+                    <img src="{{ url_for('static', filename='uploads/' + event.long_photo) }}" alt="Event Photo">
                 {% else %}
                     <img src="{{ url_for('static', filename='uploads/default.jpg') }}" alt="Default Event Photo">
                 {% endif %}

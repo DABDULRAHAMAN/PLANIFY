@@ -59,14 +59,19 @@ def create_events():
         short_desc = request.form['short_desc']
         date_str = request.form['date']  # The date input from the form
         description = request.form.get('description', '')
-        photo = request.files.get('photo')
+        short_photo = request.files.get('short_photo')
+        long_photo = request.files.get('long_photo')
 
-        if photo:
+        if short_photo and long_photo:
             # Save the photo to the upload folder
-            filename = secure_filename(photo.filename)
-            photo.save(os.path.join('static','uploads', filename))
+            short_filename = secure_filename(short_photo.filename)
+            short_photo.save(os.path.join('static','uploads', short_filename))
+
+            long_filename = secure_filename(long_photo.filename)
+            long_photo.save(os.path.join('static','uploads', long_filename))
         else:
-            filename = None
+            short_filename = None
+            long_filename = None
 
         try:
             # Convert the date string to a datetime object
@@ -78,7 +83,8 @@ def create_events():
                 short_desc=short_desc,
                 date=event_date,
                 description=description,
-                photo=filename
+                short_photo=short_filename,
+                long_photo=long_filename
             )
             
             # Add and commit to the database
@@ -115,11 +121,18 @@ def edit_event(event_id):
         event.date = datetime.strptime(date_str, "%Y-%m-%dT%H:%M")  # Convert date
 
         # Update photo if provided
-        photo = request.files.get('photo')
-        if photo:
-            filename = secure_filename(photo.filename)
-            photo.save(os.path.join('static', 'uploads', filename))
-            event.photo = filename
+        short_photo = request.files.get('short_photo')
+        long_photo = request.files.get('long_photo')
+
+        if short_photo:
+            short_filename = secure_filename(short_photo.short_filename)
+            short_photo.save(os.path.join('static', 'uploads', short_filename))
+            event.short_photo = short_filename
+
+        if long_photo:
+            long_filename = secure_filename(long_photo.long_filename)
+            long_photo.save(os.path.join('static', 'uploads', long_filename))
+            event.long_photo = long_filename
 
         try:
             db.session.commit()
@@ -136,9 +149,11 @@ def edit_event(event_id):
 def delete_event(event_id):
     event = Event.query.get_or_404(event_id)  # Fetch the event by ID
     try:
-        if event.photo:
+        if event.short_photo and event.long_photo:
             # Delete the photo file
-            os.remove(os.path.join('static', 'uploads', event.photo))
+            os.remove(os.path.join('static', 'uploads', event.short_photo))
+            os.remove(os.path.join('static', 'uploads', event.long_photo))
+
         db.session.delete(event)  # Delete the event
         db.session.commit()
         flash('Event deleted successfully!', 'success')
