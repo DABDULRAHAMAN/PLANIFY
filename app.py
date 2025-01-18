@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, session, url_for, f
 from events_file import events_file  # Import events blueprint
 from admin import admin_blueprint  # Import admin blueprint
 from models import db, User, Event, Registration
+from reg_events import reg_events # Import registration blueprint
 import bcrypt
 from functools import wraps
 
@@ -17,6 +18,7 @@ db.init_app(app)
 # Register Blueprints
 app.register_blueprint(events_file, url_prefix="/users")
 app.register_blueprint(admin_blueprint, url_prefix="/admin")
+app.register_blueprint(reg_events, url_prefix="/events")
 
 # Create database tables
 with app.app_context():
@@ -59,7 +61,7 @@ def register():
         try:
             db.session.add(new_user)
             db.session.commit()
-            flash('Registration successful! You can now log in.', 'success')
+            # flash('Registration successful! You can now log in.', 'success')
             print("data added")
             return redirect(url_for('login'))
         except Exception:
@@ -80,7 +82,7 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
             session['email'] = user.email
-            flash('Login successful!', 'success')
+            # flash('Login successful!', 'success')
             return redirect(url_for('dashboard'))
         else:
             flash('Invalid email or password. Please try again.', 'danger')
@@ -99,7 +101,7 @@ def dashboard():
 @app.route('/logout')
 def logout():
     session.pop('email', None)
-    flash('You have been logged out.', 'info')
+    # flash('You have been logged out.', 'info')
     return redirect(url_for('login'))
 
 # Main entry point

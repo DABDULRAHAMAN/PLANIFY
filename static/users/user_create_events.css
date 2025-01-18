@@ -1,0 +1,107 @@
+/* General container to inherit styles from base.html */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: inherit; /* Use base.html background */
+}
+
+/* Card container */
+.create-event-container {
+    background-color: #fff;
+    border-radius: 15px; /* Softer rounded edges */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Stronger shadow for emphasis */
+    width: 450px; /* Wider for better spacing */
+    padding: 30px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease; /* Smooth hover effect */
+    text-align: left; /* Align text to the left */
+    margin-top: 50px;
+}
+
+.create-event-container:hover {
+    transform: translateY(-5px); /* Subtle elevation on hover */
+}
+
+/* Title styling */
+.create-event-container h1 {
+    font-size: 26px;
+    color: #333;
+}
+
+/* Form layout */
+.create-event-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Uniform spacing between fields */
+}
+
+/* Form labels */
+.create-event-container form label {
+    font-size: 14px;
+    color: #444;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+/* Input and textarea fields */
+.create-event-container form input,
+.create-event-container form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+}
+
+.create-event-container form input:focus,
+.create-event-container form textarea:focus {
+    border-color: #28a745;
+    outline: none;
+    box-shadow: 0 0 4px rgba(40, 167, 69, 0.5); /* Green focus effect */
+}
+
+/* Textarea styling */
+.create-event-container form textarea {
+    resize: none;
+    height: 120px; /* Slightly larger textarea */
+}
+
+/* File input */
+.create-event-container form input[type="file"] {
+    padding: 5px;
+    font-size: 14px;
+}
+
+/* Submit button */
+.create-event-container .submit-button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 12px 0;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+    width: 150px;
+}
+
+.create-event-container .submit-button:hover {
+    background-color: #218838;
+    transform: scale(1.05); /* Slight scaling effect */
+}
+
+/* Compact layout adjustments */
+.create-event-container form input,
+.create-event-container form textarea,
+.create-event-container form label {
+    margin: 0;
+}

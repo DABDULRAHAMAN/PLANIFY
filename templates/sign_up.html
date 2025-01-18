@@ -13,13 +13,15 @@
         <button>Sign Up</button>
     </form>
     {% with messages = get_flashed_messages(with_categories=true) %}
+    <p>Debug Messages: {{ messages }}</p> <!-- Shows raw flashed messages -->
     {% if messages %}
-        {% for category, message in messages %}
-            {% if category == 'warning' %}
-                <p style="color: red;">{{ message }}</p> <!-- Debug with inline styling -->
-            {% endif %}
-        {% endfor %}
+        <div class="alert-container">
+            {% for category, message in messages %}
+                <p>Category: {{ category }}, Message: {{ message }}</p> <!-- Shows each category and message -->
+            {% endfor %}
+        </div>
     {% endif %}
 {% endwith %}
+
 </div>
 {% endblock sign_in %}
