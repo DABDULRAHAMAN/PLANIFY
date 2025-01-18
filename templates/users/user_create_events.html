@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block body %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='users/create_events.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='users/user_create_events.css') }}">
 
     <div class="create-event-container">
         <h1>Create a New Event</h1>
         <form method="POST" action="{{ url_for('reg_events.user_create_event') }}" enctype="multipart/form-data">
             <!-- Event Name -->
-            <label for="title">Event Title</label>
+            <label for="title">Event Name</label>
             <input type="text" id="title" name="title" placeholder="Enter the event name" required>
 
             <!-- Short Description -->
@@ -22,9 +22,13 @@
             <label for="description">Event Full Description</label>
             <textarea id="description" name="description" placeholder="Enter the full event details" required></textarea>
 
-            <!-- Photo Upload -->
-            <label for="photo">Upload Photo</label>
-            <input type="file" id="photo" name="photo" accept="image/*">
+            <!-- Poster Upload -->
+            <label for="poster">Upload Poster</label>
+            <input type="file" id="poster" name="poster" accept="image/*" required>
+
+            <!-- Banner Upload -->
+            <label for="banner">Upload Banner</label>
+            <input type="file" id="banner" name="banner" accept="image/*" required>
 
             <!-- Submit Button -->
             <button type="submit" class="submit-button">Create Event</button>
