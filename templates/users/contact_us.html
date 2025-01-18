@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% block body %}
-    {% include 'users/navbar.html' %}
+    
     <link rel="stylesheet" href="{{ url_for('static', filename='users/contact_us.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
+    {% include 'users/navbar.html' %}
 
     <div class="container about-us mt-5" style="width: 80%;">
         

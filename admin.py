@@ -27,7 +27,7 @@ def admin_login():
         # Hardcoded credentials (replace with a secure mechanism in production)
         if admin_id == 'admin' and password == 'admin':
             session['admin_logged_in'] = True
-            flash('Admin login successful!', 'success')
+            # flash('Admin login successful!', 'success')
             return redirect(url_for('admin.admin_dashboard'))
         flash('Invalid credentials. Please try again.', 'danger')
     return render_template('admin/admin_login.html')

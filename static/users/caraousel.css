@@ -77,7 +77,7 @@ button:hover {
     background-color: #f9f9f9;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    margin-top: 30px; /* Space between carousel and details */
+    margin-top: -20px; /* Space between carousel and details */
     font-family: 'Lora', serif;
     color: #333;
     box-shadow: none;
