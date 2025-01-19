@@ -1,10 +1,13 @@
-{% extends 'base.html' %}
-{% block body %}
+{% extends "admin/admin_dashboard.html" %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='admin/review_events.css') }}">
 <h1>Pending Events</h1>
-<table>
+<table class="event-table">
     <thead>
         <tr>
             <th>Title</th>
+            <th>Poster</th>
+            <th>Banner</th>
             <th>Description</th>
             <th>Date</th>
             <th>Actions</th>
@@ -14,14 +17,28 @@
         {% for event in events %}
         <tr>
             <td>{{ event.title }}</td>
+            <td>
+                {% if event.short_photo %}
+                    <img src="{{ url_for('static', filename='uploads/' + event.short_photo) }}" alt="Poster" class="event-image">
+                {% else %}
+                    <p>No Poster</p>
+                {% endif %}
+            </td>
+            <td>
+                {% if event.long_photo %}
+                    <img src="{{ url_for('static', filename='uploads/' + event.long_photo) }}" alt="Banner" class="event-image">
+                {% else %}
+                    <p>No Banner</p>
+                {% endif %}
+            </td>
             <td>{{ event.short_desc }}</td>
             <td>{{ event.date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
             <td>
                 <form action="{{ url_for('admin.approve_event', event_id=event.id) }}" method="post" style="display:inline;">
-                    <button type="submit">Approve</button>
+                    <button type="submit" class="btn-approve">Approve</button>
                 </form>
                 <form action="{{ url_for('admin.reject_event', event_id=event.id) }}" method="post" style="display:inline;">
-                    <button type="submit">Reject</button>
+                    <button type="submit" class="btn-reject">Reject</button>
                 </form>
             </td>
         </tr>

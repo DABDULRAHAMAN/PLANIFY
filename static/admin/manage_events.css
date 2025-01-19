@@ -5,8 +5,8 @@
     border-radius: 8px;
     padding: 30px;
     margin: 20px auto; /* Centered with margin */
-    max-width: 1200px; /* Limit width for large screens */
-    width: 90%; /* Responsive width */
+    max-width: 1300px; /* Limit width for large screens */
+    width: 100%; /* Responsive width */
 }
 
 /* Page title styling */

@@ -22,32 +22,6 @@ def profile_dashboard():
 # Create Event Route (GET and POST)
 @reg_events.route('/create_event', methods=['GET', 'POST'])
 def create_event():
-    if request.method == 'POST':
-        title = request.form.get('title')
-        description = request.form.get('description')
-        date = request.form.get('date')
-        file = request.files.get('photo')
-
-        if file and title and description and date:
-            filename = secure_filename(file.filename)
-            filepath = os.path.join(UPLOAD_FOLDER, filename)
-            file.save(filepath)
-
-            # Save event details to the database
-            event = Event(
-                title=title,
-                description=description,
-                date=datetime.strptime(date, '%Y-%m-%d'),
-                photo=filepath
-            )
-            db.session.add(event)
-            db.session.commit()
-            flash('Event created successfully!', 'success')
-            return redirect(url_for('reg_events.manage_event'))
-
-        else:
-            flash('All fields are required, including a valid photo.', 'danger')
-
     return render_template('profile/create_events.html')
 
 # Manage Event Route

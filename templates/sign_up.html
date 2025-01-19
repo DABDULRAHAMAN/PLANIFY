@@ -2,14 +2,10 @@
 <div class="form-container sign-up-container">
     <form action="/register" method="POST">
         <h1>Create Account</h1>
-        <!-- <div class="social-container">
-            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-            <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-        </div> -->
         <input type="text" placeholder="Name" id="name" name="name" required/>
         <input type="email" placeholder="Email" id="email" name="email" required/>
-        <input type="password" placeholder="Password" id="password" name="password"/>
+        <input type="password" placeholder="Password" id="password" name="password" required/>
+        <input type="password" placeholder="Confirm Password" id="confirm-password" name="confirm_password" required/>
         <button>Sign Up</button>
     </form>
 </div>

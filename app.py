@@ -48,12 +48,17 @@ def register():
         name = request.form['name']
         email = request.form['email']
         password = request.form['password']
+        confirm_password = request.form['confirm_password']
 
         # Check if email already exists
         if User.query.filter_by(email=email).first():
             flash('Email already exists. Please use a different email.', 'danger')
             return redirect(url_for('register'))
 
+        if password != confirm_password:
+            flash('Passwords do not match. Please try again.', 'danger')
+            return redirect(url_for('register'))
+        
         # Create new user
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
         new_user = User(name=name, email=email, password=hashed_password)
@@ -67,7 +72,6 @@ def register():
         except Exception:
             db.session.rollback()
             flash('Registration failed. Please try again.', 'danger')
-            print("Fail")
             return redirect(url_for('register'))
 
     return render_template('index.html')  # Use a dedicated registration template
