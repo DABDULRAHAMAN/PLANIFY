@@ -9,10 +9,12 @@ db = SQLAlchemy()  # Initialize the database object
 class User(db.Model):
     id = db.Column(db.String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     name = db.Column(db.String(80), nullable=False)
-    # phone_no = db.Column(db.Integer, nullable=False)  # Ensure this field exists
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(256), nullable=False)
+    photo = db.Column(db.String(256), nullable=True)  # Path to profile picture
     registrations = db.relationship('Registration', backref='user', lazy=True)
+    events_created = db.relationship('Event', backref='creator', lazy=True)  # Relationship for events created
+
 
 # Event Table
 class Event(db.Model):
@@ -25,6 +27,7 @@ class Event(db.Model):
     long_photo = db.Column(db.String(200), nullable=True)
     registrations = db.relationship('Registration', backref='event', lazy=True)
     is_approved = db.Column(db.Boolean, default=False)  # New column for event approval
+    creator_id = db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)  # Link to User
 
 # Registration Table
 class Registration(db.Model):

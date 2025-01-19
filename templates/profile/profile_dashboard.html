@@ -1,22 +1,70 @@
 {% extends 'base.html' %}
-
-{% block body%}
+{% include 'users/navbar.html' %}
+{% block body %}
 <div class="dashboard-container">
     <link rel="stylesheet" href="{{ url_for('static', filename='profile/profile.css') }}">
     <!-- Left Column -->
     <div class="dashboard-sidebar">
         <ul>
+            <h1>Profile <br>Dashboard</h1>
             <li><a href="{{ url_for('reg_events.profile_dashboard') }}">Profile</a></li>
-            <li><a href="{{ url_for('reg_events.create_event') }}">Create Event</a></li>
-            <li><a href="{{ url_for('reg_events.manage_event') }}">Manage Event</a></li>
-            <li><a href="{{ url_for('reg_events.view_event') }}">View Event</a></li>
+            <li><a href="{{ url_for('reg_events.edit_dashboard') }}">Edit Profile</a></li>
+            <li><a href="{{ url_for('reg_events.user_create_event') }}">Create Event</a></li>
+            <li><a href="{{ url_for('reg_events.user_manage_event') }}">Manage Event</a></li>
+            <li><a href="{{ url_for('reg_events.user_view_event') }}">View Event</a></li>
         </ul>
     </div>
 
     <!-- Main Content -->
     <div class="dashboard-content">
         {% block dashboard_content %}
-            <p> AAAAAA  A A  A  A  A AAAA Caaa</p>
+        <div class="profile-container">
+            <div class="card">
+                <div class="card-content">
+                    <!-- Left: Profile Picture -->
+                    <div class="pic">
+                        <img 
+                            src="{{ url_for('static', filename='uploads/' + ('default.jpeg' or user.photo) )}}" 
+                            alt="{{ user.name }}" >
+                    </div>
+                    <!-- Right: User Info -->
+                    <div class="user-info">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ user.name }}</h2>
+                            <p><strong>Email:</strong> {{ user.email }}</p>
+                            <hr>
+                            <!-- Events Registered -->
+                            <h4>Events Registered : {{ num_registered_events }}</h4>
+                            <div class="event-list">
+                                <ul>
+                                    {% if num_registered_events > 0 %}
+                                        {% for event in registered_events %}
+                                            <li>{{ event.event.title }}</li>  <!-- Display event title -->
+                                        {% endfor %}
+                                    {% else %}
+                                        <p>No events registered.</p>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            <hr>
+                            <!-- Events Created -->
+                            <h4>Events Created : {{ num_created_events }}</h4>
+                            <div class="event-list">
+                                <ul>
+                                    {% if num_created_events > 0 %}
+                                        {% for event in created_events %}
+                                            <li>{{ event.title }}</li>  <!-- Display event title -->
+                                        {% endfor %}
+                                    {% else %}
+                                        <p>No events created.</p>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         {% endblock %}
     </div>
 </div>

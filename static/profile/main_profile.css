@@ -1,0 +1,157 @@
+/* General Styles */
+body {
+    background-color: #fdf6e3; /* Light cream background */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Center the profile container */
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full viewport height for vertical centering */
+}
+
+/* Profile Card */
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    background-color: #ffffff; /* White card background */
+}
+
+/* Profile Photo */
+.profile-photo {
+    max-width: 150px;
+    height: auto;
+    border-radius: 50%;
+    border: 4px solid #fdd835; /* Gold border for photo */
+    background-color: #f6f6f6; /* Light grey fallback for images */
+}
+
+/* User Information */
+.card-body {
+    padding: 20px;
+    text-align: center;
+}
+
+/* User Name */
+.card-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333333; /* Dark grey text for name */
+}
+
+/* User Details */
+.card-body p {
+    margin: 10px 0;
+    color: #666666; /* Lighter grey for additional info */
+}
+
+/* Event Count Section */
+.event-section {
+    margin: 20px 0;
+}
+
+.event-section h4 {
+    font-size: 1.2rem;
+    color: #444444; /* Dark grey for section headers */
+}
+
+.event-section p {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #222222; /* Stronger grey for counts */
+}
+
+/* Buttons or Links (if needed) */
+.btn-primary {
+    background-color: #fdd835;
+    border: none;
+    color: #000;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 25px;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #ffc107; /* Slightly brighter gold */
+    color: #333;
+}
+
+
+.profile-update-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 180px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+/* Profile Photo Container */
+.profile-photo-container {
+    position: relative;
+    width: 150px; /* Adjust size as needed */
+    height: 150px;
+    margin: 30px auto; /* Center alignment */
+    border-radius: 50%; /* Makes the container circular */
+    overflow: hidden; /* Ensures content stays within the circle */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+}
+
+/* Profile Photo */px
+.profile-photo {
+    width: 40px;
+    height: 40px;
+    object-fit: cover; /* Ensures the image fits nicely within the circle */
+}
+
+/* Edit Overlay */
+.edit-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black overlay */
+    border-radius: 50%; /* Matches the circle shape */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+/* Edit Button */
+.edit-button {
+    background-color: #ff4d4f; /* Reddish button color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 20px; /* Rounded button */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Button Hover Effect */
+.edit-button:hover {
+    background-color: #d9363e; /* Darker red on hover */
+    transform: scale(1.1); /* Slight enlargement */
+}
+
+/* Show Overlay on Hover */
+.profile-photo-container:hover .edit-overlay {
+    opacity: 1; /* Makes the overlay visible */
+}
+
+.form-group {
+    margin: 20px;
+    gap: 15px;
+    width: 100%;
+}

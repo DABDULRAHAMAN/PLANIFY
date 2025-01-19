@@ -100,7 +100,7 @@ button.ghost {
 }
 
 form {
-	display: flex;
+	/* display: flex; */
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
@@ -419,7 +419,7 @@ footer.visible {
 }
 
 .alert-container {
-    margin: 2em 0 1em;
+    margin: 3em 4em 1em;
 }
 .alert {
     padding: 0.75em 1em;

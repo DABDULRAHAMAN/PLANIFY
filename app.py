@@ -20,6 +20,16 @@ app.register_blueprint(events_file, url_prefix="/users")
 app.register_blueprint(admin_blueprint, url_prefix="/admin")
 app.register_blueprint(reg_events, url_prefix="/events")
 
+# Assuming you have a folder to save uploaded photos
+UPLOAD_FOLDER = 'static/uploads'
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# Function to check allowed file extensions
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 # Create database tables
 with app.app_context():
     db.create_all()
@@ -61,7 +71,9 @@ def register():
         
         # Create new user
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-        new_user = User(name=name, email=email, password=hashed_password)
+        photo_path = 'default.jpg'
+
+        new_user = User(name=name, email=email, password=hashed_password, photo=photo_path)
 
         try:
             db.session.add(new_user)
@@ -85,6 +97,8 @@ def login():
 
         user = User.query.filter_by(email=email).first()
         if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+            session['id'] = user.id
+            session['name'] = user.name
             session['email'] = user.email
             # flash('Login successful!', 'success')
             return redirect(url_for('dashboard'))

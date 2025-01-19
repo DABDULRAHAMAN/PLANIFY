@@ -85,7 +85,8 @@ def create_events():
                 description=description,
                 short_photo=short_filename,
                 long_photo=long_filename,
-                is_approved=False
+                is_approved=False,
+                 creator_id=session['id']  # Set the creator ID to the current user's ID
             )
             
             # Add and commit to the database

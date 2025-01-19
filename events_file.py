@@ -35,6 +35,7 @@ def register_event_user():
     # Extract form data
     email = request.form.get('email')  # Use email to find the user
     event_id = request.form.get('event_id')
+    phone= request.form.get('phone')
     remarks = request.form.get('remarks', '')
 
     # Validate required fields
@@ -61,7 +62,7 @@ def register_event_user():
         return redirect(url_for('events_file.explore_events'))
 
     # Register the user for the event
-    new_registration = Registration(user_id=user.id, event_id=event_id, remarks=remarks)
+    new_registration = Registration(user_id=user.id, event_id=event_id, remarks=remarks, phone_no=phone)
     db.session.add(new_registration)
     db.session.commit()
 

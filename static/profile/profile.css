@@ -1,6 +1,8 @@
 body {
-    margin: 0;
+    margin: 80px;
     font-family: 'Poppins', sans-serif;
+    background-color: #fdf5e6; /* Light cream background */
+    color: #333; /* Text color */
 }
 
 .dashboard-container {
@@ -10,38 +12,179 @@ body {
 
 .dashboard-sidebar {
     width: 250px;
-    background-color: #f8f9fa;
-    padding: 20px;
-    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
-    
+    background-color: #000; /* Black sidebar */
+    color: #fff; /* White text */
+    position: fixed; /* Sidebar stays fixed on the left */
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: 20px 0;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.5); /* Slight shadow for depth */
+    overflow-y: auto; /* Scroll if content exceeds viewport */
+    z-index: 1001; /* Ensure sidebar stays on top */
 }
 
 .dashboard-sidebar ul {
     list-style-type: none;
     padding: 0;
+    margin: 0;
 }
 
 .dashboard-sidebar ul li {
-    margin: 15px 0;
+    margin: 20px 0;
 }
 
 .dashboard-sidebar ul li a {
     text-decoration: none;
-    color: #333;
+    color: #fff; /* White text for links */
     font-weight: 500;
     display: block;
-    padding: 10px 15px;
+    padding: 12px 20px;
     border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+    position: relative; /* For animation effects */
+    overflow: hidden;
+}
+
+.dashboard-sidebar ul li a::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1); /* Soft highlight */
+    transition: left 0.3s ease;
+    z-index: 1; /* Stay below text */
 }
 
 .dashboard-sidebar ul li a:hover {
-    background-color: #28a745;
-    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1); /* Subtle black highlight */
+    transform: translateX(5px); /* Slight slide to the right */
+    color: #ff6961; /* Reddish hover text color */
 }
 
-.dashboard-content {
+.dashboard-sidebar ul li a:hover::before {
+    left: 0; /* Slide effect on hover */
+}
+
+.dashboard-sidebar ul li a span {
+    position: relative;
+    z-index: 2; /* Ensure text stays above animation */
+}
+
+/* .dashboard-content {
     flex-grow: 1;
     padding: 20px;
-    background-color: #fff;
+    background-color: #ffffff;
+    margin-left: 250px; /* Offset for the sidebar */
+
+
+/* General Styles */
+body {
+    background-color: #fdf6e3; /* Light cream background */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
 }
+
+/* Profile Container */
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full viewport height for vertical centering */
+    padding: 20px; /* Added some padding around the container for better spacing */
+}
+
+/* Profile Card */
+.card {
+    width: 700px; /* Increased the width of the card */
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow with more spread */
+    background-color: #ffffff; /* White card background */
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    margin-left: 250px;
+}
+
+/* Card Content */
+.card-content {
+    display: flex;
+    width: 100%;
+}
+
+/* Profile Picture */
+.pic {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #f6f6f6; /* Light grey background */
+}
+
+.photoo{
+    width: 1180px; /* Increased the size of the photo */
+    height: 1180px; /* Increased the size of the photo */
+    border-radius: 50%;
+    border: 4px solid #fdd835; /* Gold border for photo */
+    object-fit: cover;
+}
+
+/* User Info */
+.user-info {
+    flex: 2;
+    padding: 20px;
+}
+
+/* Card Body */
+.card-body {
+    text-align: left; /* Changed to left align the text */
+}
+
+/* User Name */
+.card-title {
+    font-size: 2.2rem; /* Slightly larger font size */
+    font-weight: bold;
+    color: #333333; /* Dark grey text for name */
+}
+
+/* User Details */
+.card-body p {
+    margin: 10px 0;
+    color: #666666; /* Lighter grey for additional info */
+}
+
+/* Events Section */
+h4 {
+    font-size: 1.4rem; /* Slightly larger section header */
+    color: #444444; /* Dark grey for section headers */
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+ul li {
+    font-size: 1rem;
+    color: #222222; /* Stronger grey for event names */
+    margin: 5px 0;
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+    .card {
+        flex-direction: column;
+    }
+    .pic {
+        padding: 10px;
+    }
+    .profile-photo {
+        width: 150px;
+        height: 150px;
+    }
+}
+
