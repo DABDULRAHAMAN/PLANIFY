@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="dashboard-container">
+    <link rel="stylesheet" href="{{ url_for('static', filename='profile/profile.css') }}">
+    <!-- Left Column -->
+    <div class="dashboard-sidebar">
+        <ul>
+            <li><a href="{{ url_for('reg_events.profile_dashboard') }}">Profile</a></li>
+            <li><a href="{{ url_for('reg_events.create_event') }}">Create Event</a></li>
+            <li><a href="{{ url_for('reg_events.manage_event') }}">Manage Event</a></li>
+            <li><a href="{{ url_for('reg_events.view_event') }}">View Event</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="dashboard-content">
+        {% block dashboard_content %}
+            <p> AAAAAA  A A  A  A  A AAAA Caaa</p>
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}

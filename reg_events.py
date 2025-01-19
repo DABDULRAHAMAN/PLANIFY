@@ -10,6 +10,61 @@ reg_events = Blueprint('reg_events', __name__, template_folder='templates')
 # Set the upload folder path
 UPLOAD_FOLDER = 'static/uploads'
 
+# Profile Dashboard Route
+@reg_events.route('/profile_dashboard')
+def profile_dashboard():
+    return render_template('profile/profile_dashboard.html', user={
+        'name': 'John Doe',
+        'email': 'john.doe@example.com',
+        'joined_date': 'January 1, 2023'
+    })
+
+# Create Event Route (GET and POST)
+@reg_events.route('/create_event', methods=['GET', 'POST'])
+def create_event():
+    if request.method == 'POST':
+        title = request.form.get('title')
+        description = request.form.get('description')
+        date = request.form.get('date')
+        file = request.files.get('photo')
+
+        if file and title and description and date:
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(UPLOAD_FOLDER, filename)
+            file.save(filepath)
+
+            # Save event details to the database
+            event = Event(
+                title=title,
+                description=description,
+                date=datetime.strptime(date, '%Y-%m-%d'),
+                photo=filepath
+            )
+            db.session.add(event)
+            db.session.commit()
+            flash('Event created successfully!', 'success')
+            return redirect(url_for('reg_events.manage_event'))
+
+        else:
+            flash('All fields are required, including a valid photo.', 'danger')
+
+    return render_template('profile/create_events.html')
+
+# Manage Event Route
+@reg_events.route('/manage_event')
+def manage_event():
+    events = Event.query.all()  # Retrieve all events from the database
+    return render_template('profile/manage_events.html', events=events)
+
+# View Event Route
+@reg_events.route('/view_event')
+def view_event():
+    events = Event.query.all()  # Retrieve all events from the database
+    return render_template('profile/view_events.html', events=events)
+
+
+
+
 @reg_events.route('/Create', methods=['GET', 'POST'])
 def user_create_event():
     if request.method == 'POST':

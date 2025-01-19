@@ -344,6 +344,28 @@ footer a {
 	width: auto;
 	object-fit: contain;
 }
+
+/* Profile photo */
+.profile-link {
+    position: absolute;
+    right: 40px; /* Adjust as needed to fine-tune the distance from the right edge */
+    top: 30%; /* Centers vertically relative to the navbar */
+    transform: translateY(-50%);
+}
+
+.profile-photo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.profile-photo:hover {
+    transform: scale(1.1);
+}
+
 /* Footer Styling */
 footer {
     position: relative;
@@ -397,7 +419,7 @@ footer.visible {
 }
 
 .alert-container {
-    margin: 1em 0;
+    margin: 2em 0 1em;
 }
 .alert {
     padding: 0.75em 1em;

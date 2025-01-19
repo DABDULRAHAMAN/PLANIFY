@@ -1,8 +1,9 @@
 <head>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
 </head>
 <div class="nav-container">
-    <!-- Adjusted logo size and position -->
+    <!-- Logo -->
     <img class="logo" src="{{ url_for('static', filename='uploads/Planify.png') }}" alt="Planify Logo">
     
     <!-- Navigation menu -->
@@ -26,5 +27,9 @@
             <a class="nav-link" href="/">Logout</a>
         </li>
     </ul>
-</div>
 
+    <!-- Profile photo -->
+    <a href="{{ url_for('reg_events.profile_dashboard') }}" class="profile-link">
+        <img class="profile-photo" src="{{ url_for('static', filename='uploads/profile.jpg') }}" alt="Profile">
+    </a>
+</div>
