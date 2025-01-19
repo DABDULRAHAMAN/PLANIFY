@@ -1,17 +1,32 @@
-<!-- templates/admin/manage_events.html -->
 {% extends "admin/admin_dashboard.html" %}
 
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='admin/manage_events.css') }}">
+
 <div class="container manage_events mt-5">
     <h1 class="mb-4">Manage Events</h1>
 
+    <!-- Flash Messages -->
+    <!-- {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-messages">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %} -->
+
+    <!-- Events Table -->
     <table class="table table-bordered events-table">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Photo</th>
-                <th>banner</th>
+                <th>Banner</th>
                 <th>Title</th>
                 <th>Short Description</th>
                 <th>Description</th>

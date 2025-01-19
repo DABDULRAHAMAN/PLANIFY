@@ -104,8 +104,8 @@ def create_events():
 @admin_blueprint.route('/manage-events', methods=['GET'])
 @admin_login_required
 def manage_events():
-    # Fetch all events for display
-    events = Event.query.order_by(Event.date.asc()).all()
+    # Fetch only approved events for display
+    events = Event.query.filter_by(is_approved=True).order_by(Event.date.asc()).all()
     return render_template('admin/manage_events.html', events=events)
 
 @admin_blueprint.route('/edit-event/<int:event_id>', methods=['GET', 'POST'])
@@ -145,24 +145,38 @@ def edit_event(event_id):
 
     return render_template('admin/edit_event.html', event=event)
 
+import os
+
 @admin_blueprint.route('/delete-event/<int:event_id>', methods=['POST'])
 @admin_login_required
 def delete_event(event_id):
-    event = Event.query.get_or_404(event_id)  # Fetch the event by ID
-    try:
-        if event.short_photo and event.long_photo:
-            # Delete the photo file
-            os.remove(os.path.join('static', 'uploads', event.short_photo))
-            os.remove(os.path.join('static', 'uploads', event.long_photo))
+    # Fetch the event by ID
+    event = Event.query.get_or_404(event_id)
 
-        db.session.delete(event)  # Delete the event
+    try:
+        # Delete associated photo files if they exist
+        if event.short_photo:
+            short_photo_path = os.path.join('static', 'uploads', event.short_photo)
+            if os.path.exists(short_photo_path):
+                os.remove(short_photo_path)
+
+        if event.long_photo:
+            long_photo_path = os.path.join('static', 'uploads', event.long_photo)
+            if os.path.exists(long_photo_path):
+                os.remove(long_photo_path)
+
+        # Delete the event record from the database
+        db.session.delete(event)
         db.session.commit()
         flash('Event deleted successfully!', 'success')
+
     except Exception as e:
-        db.session.rollback()
+        db.session.rollback()  # Rollback the transaction in case of error
         flash(f'Error deleting event: {str(e)}', 'danger')
 
+    # Redirect to the event management page
     return redirect(url_for('admin.manage_events'))
+
 
 @admin_blueprint.route('/edit_registration/<int:registration_id>', methods=['GET', 'POST'])
 def edit_registration(registration_id):
@@ -175,11 +189,23 @@ def edit_registration(registration_id):
     return render_template('edit_registration.html', registration=registration)
 
 @admin_blueprint.route('/delete_registration/<int:registration_id>', methods=['POST'])
+@admin_login_required  # Ensure only admins can access this route
 def delete_registration(registration_id):
-    registration = Registration.query.get_or_404(registration_id)
-    db.session.delete(registration)
-    db.session.commit()
-    flash('Registration deleted successfully!', 'success')
+    try:
+        # Fetch the registration or return 404 if it doesn't exist
+        registration = Registration.query.get_or_404(registration_id)
+        
+        # Delete the registration
+        db.session.delete(registration)
+        db.session.commit()
+
+        # Flash a success message
+        flash(f'Registration for "{registration.event.title}" deleted successfully!', 'success')
+    except Exception as e:
+        # Handle unexpected errors
+        flash(f'An error occurred while deleting the registration: {str(e)}', 'danger')
+
+    # Redirect to the registrations view page
     return redirect(url_for('events_file.view_registrations'))
 
 @admin_blueprint.route('/admin/review_event')

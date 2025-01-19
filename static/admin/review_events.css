@@ -1,0 +1,62 @@
+/* General Table Styles */
+.event-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+.event-table thead {
+    background-color: #f4f4f4;
+}
+
+.event-table th, .event-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.event-table th {
+    font-weight: bold;
+    text-align: center;
+}
+
+.event-table td {
+    text-align: center;
+}
+
+/* Image Styling */
+.event-image {
+    width: 100px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+/* Buttons */
+.btn-approve, .btn-reject {
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-approve {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-approve:hover {
+    background-color: #218838;
+}
+
+.btn-reject {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-reject:hover {
+    background-color: #c82333;
+}
