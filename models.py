@@ -18,19 +18,20 @@ class User(db.Model):
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
-    short_desc=db.Column(db.String(100),nullable=False)
-    description = db.Column(db.Text, nullable=True)  
+    short_desc = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text, nullable=True)
     date = db.Column(db.DateTime, nullable=False)
     short_photo = db.Column(db.String(200), nullable=True)
     long_photo = db.Column(db.String(200), nullable=True)
     registrations = db.relationship('Registration', backref='event', lazy=True)
-
+    is_approved = db.Column(db.Boolean, default=False)  # New column for event approval
 
 # Registration Table
 class Registration(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
+    phone_no = db.Column(db.Integer, nullable=False) 
     registration_date = db.Column(db.DateTime, default=datetime.utcnow)
     remarks = db.Column(db.Text, nullable=True)
     __table_args__ = (db.UniqueConstraint('user_id', 'event_id', name='unique_registration'),)

@@ -7,7 +7,8 @@ events_file = Blueprint('events_file', __name__, template_folder='templates')
 # Route: Display all events
 @events_file.route('/explore-events')
 def explore_events():
-    events_list = Event.query.all()  # Fetch events from the database
+    # Fetch only approved events
+    events_list = Event.query.filter_by(is_approved=True).all()
     return render_template('users/events.html', events=events_list)
 
 # Define the route for the About Us page

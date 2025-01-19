@@ -84,7 +84,8 @@ def create_events():
                 date=event_date,
                 description=description,
                 short_photo=short_filename,
-                long_photo=long_filename
+                long_photo=long_filename,
+                is_approved=False
             )
             
             # Add and commit to the database
@@ -180,6 +181,34 @@ def delete_registration(registration_id):
     db.session.commit()
     flash('Registration deleted successfully!', 'success')
     return redirect(url_for('events_file.view_registrations'))
+
+@admin_blueprint.route('/admin/review_event')
+@admin_login_required
+def review_event():
+    pending_events = Event.query.filter_by(is_approved=False).all()
+    return render_template('admin/review_event.html', events=pending_events)
+
+@admin_blueprint.route('/approve-event/<int:event_id>', methods=['POST'])
+@admin_login_required
+def approve_event(event_id):
+    # Fetch the event by ID
+    event = Event.query.get_or_404(event_id)
+    # Update the is_approved field to True
+    event.is_approved = True
+    db.session.commit()
+    flash('Event approved successfully!', 'success')
+    return redirect(url_for('admin.manage_events'))
+
+@admin_blueprint.route('/reject-event/<int:event_id>', methods=['POST'])
+@admin_login_required
+def reject_event(event_id):
+    # Fetch the event by ID
+    event = Event.query.get_or_404(event_id)
+    # Optionally delete the event or mark it as rejected (custom logic)
+    db.session.delete(event)  # Deletes the event from the database
+    db.session.commit()
+    flash('Event rejected successfully!', 'danger')
+    return redirect(url_for('admin.manage_events'))
 
 # Admin Logout Route
 @admin_blueprint.route('/admin-logout')

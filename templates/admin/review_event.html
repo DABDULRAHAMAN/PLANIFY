@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block body %}
+<h1>Pending Events</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in events %}
+        <tr>
+            <td>{{ event.title }}</td>
+            <td>{{ event.short_desc }}</td>
+            <td>{{ event.date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+            <td>
+                <form action="{{ url_for('admin.approve_event', event_id=event.id) }}" method="post" style="display:inline;">
+                    <button type="submit">Approve</button>
+                </form>
+                <form action="{{ url_for('admin.reject_event', event_id=event.id) }}" method="post" style="display:inline;">
+                    <button type="submit">Reject</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
