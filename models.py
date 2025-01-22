@@ -11,7 +11,7 @@ class User(db.Model):
     name = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(256), nullable=False)
-    photo = db.Column(db.String(256), nullable=True)  # Path to profile picture
+    photo = db.Column(db.String(255), nullable=True, default='uploads/default_profile.jpg')
     registrations = db.relationship('Registration', backref='user', lazy=True)
     events_created = db.relationship('Event', backref='creator', lazy=True)  # Relationship for events created
 
