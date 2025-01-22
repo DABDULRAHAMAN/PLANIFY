@@ -3,6 +3,7 @@ from events_file import events_file  # Import events blueprint
 from admin import admin_blueprint  # Import admin blueprint
 from models import db, User, Event, Registration
 from reg_events import reg_events # Import registration blueprint
+from payment import payment_bp  # Import payment blueprint
 import bcrypt
 from functools import wraps
 
@@ -19,6 +20,7 @@ db.init_app(app)
 app.register_blueprint(events_file, url_prefix="/users")
 app.register_blueprint(admin_blueprint, url_prefix="/admin")
 app.register_blueprint(reg_events, url_prefix="/events")
+app.register_blueprint(payment_bp, url_prefix='/payment')
 
 # Assuming you have a folder to save uploaded photos
 UPLOAD_FOLDER = 'static/uploads'

@@ -28,13 +28,13 @@
         </li>
     </ul>
 
-<!-- Profile photo -->
-<a href="{{ url_for('reg_events.profile_dashboard') }}" class="profile-link">
-    <img
-        class="profile-photo"
-        src="{{ url_for('static', filename=user.photo) if user.photo else url_for('static', filename='uploads/default_profile.jpg') }}"
-        alt="Profile"
-    >
-</a>
-
+    <!-- Profile photo -->
+    <!-- Profile photo -->
+    <a href="{{ url_for('reg_events.profile_dashboard') }}" class="profile-link">
+        <img 
+            class="profile-photo" 
+            src="{{ url_for('static', filename=user.photo if user.photo else 'uploads/default_profile.jpg') }}" 
+            alt="Profile"
+        >
+    </a>
 </div>

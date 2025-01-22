@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for, flash
 from models import db, User, Event, Registration
+from payment import create_payment_order  # Import payment order creation function
 
 # Create Blueprint
 events_file = Blueprint('events_file', __name__, template_folder='templates')
@@ -33,9 +34,9 @@ def event_registration_page(event_id):
 @events_file.route('/register_event', methods=['POST'])
 def register_event_user():
     # Extract form data
-    email = request.form.get('email')  # Use email to find the user
+    email = request.form.get('email')
     event_id = request.form.get('event_id')
-    phone= request.form.get('phone')
+    phone = request.form.get('phone')
     remarks = request.form.get('remarks', '')
 
     # Validate required fields
@@ -61,13 +62,24 @@ def register_event_user():
         flash('You are already registered for this event.', 'info')
         return redirect(url_for('events_file.explore_events'))
 
-    # Register the user for the event
-    new_registration = Registration(user_id=user.id, event_id=event_id, remarks=remarks, phone_no=phone)
+    # Create a Razorpay order
+    amount = int(event.fee * 100)  # Convert to paise
+    payment_order = create_payment_order({'amount': amount, 'currency': 'INR', 'receipt': f'receipt_{user.id}_{event_id}'})
+
+    # Store the registration and payment order ID in the database
+    new_registration = Registration(
+        user_id=user.id,
+        event_id=event_id,
+        phone_no=phone,
+        remarks=remarks,
+        payment_order_id=payment_order['id'],
+        payment_status='pending'
+    )
     db.session.add(new_registration)
     db.session.commit()
 
-    flash('Successfully registered for the event!', 'success')
-    return redirect(url_for('events_file.explore_events'))
+    # Redirect to payment page
+    return render_template('payment_page.html', payment_order=payment_order, event=event)
 
 # Route: Display all registrations
 @events_file.route('/registrations', methods=['GET'])
@@ -79,4 +91,3 @@ def view_registrations():
         .all()
     )
     return render_template('view_registration.html', registrations=registrations)
-
