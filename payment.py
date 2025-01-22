@@ -1,5 +1,5 @@
 import razorpay
-from flask import Blueprint, render_template, request, redirect, current_app, url_for, flash
+from flask import Blueprint, render_template, request, redirect, current_app, url_for, flash, jsonify
 from models import db, Registration, User, Event
 
 # Blueprint for payment-related routes
@@ -12,32 +12,30 @@ client = razorpay.Client(auth=(razorpay_key_id, razorpay_secret_key))
 
 @payment_bp.route('/payment', methods=['POST'])
 def payment():
-    """
-    Route to initiate payment after registration form submission.
-    """
-    # Get form data
-    name = request.form.get('name')
-    email = request.form.get('email')
-    phone = request.form.get('phone')
-    remarks = request.form.get('remarks', '')
-    event_id = request.form.get('event_id')
-    amount = int(request.form.get('amount')) * 100  # Convert to paise
+    data = request.get_json()  # Parse JSON payload
+    if not data:
+        return jsonify({"error": "Invalid data provided"}), 400
 
-    # Fetch event details from the database
+    # Extract details from the JSON payload
+    name = data.get('name')
+    email = data.get('email')
+    phone = data.get('phone')
+    remarks = data.get('remarks', '')
+    event_id = data.get('event_id')
+    amount = int(data.get('amount', 0)) * 100  # Convert to paise
+
+    if not (name and email and phone and event_id and amount):
+        return jsonify({"error": "All fields are required!"}), 400
+
     event = Event.query.get(event_id)
     if not event:
-        flash("Event not found.", "error")
-        return redirect(url_for('events_file.explore_events'))
+        return jsonify({"error": "Event not found."}), 404
 
-    # Create Razorpay order
     try:
         order = create_payment_order(amount, email, event.name)
+        if not order:
+            return jsonify({"error": "Failed to create payment order."}), 500
 
-        if order is None:
-            flash("Failed to create payment order.", "error")
-            return redirect(url_for('events_file.explore_events'))
-
-        # Save order details in the database
         new_registration = Registration(
             user_id=User.query.filter_by(email=email).first().id,
             event_id=event_id,
@@ -49,31 +47,20 @@ def payment():
         db.session.add(new_registration)
         db.session.commit()
 
-        # Pass order details to the template
-        return render_template(
-            'users/payment.html',
-            order=order,
-            amount=amount,
-            key=razorpay_key_id,
-            event=event
-        )
+        return jsonify({"order": order}), 200
     except Exception as e:
-        flash(f"An error occurred while creating the payment order: {e}", "error")
-        return redirect(url_for('events_file.explore_events'))
+        current_app.logger.error(f"Error during payment initiation: {e}")
+        return jsonify({"error": "An internal error occurred. Please try again later."}), 500
 
 
 @payment_bp.route('/success', methods=['POST'])
 def payment_success():
-    """
-    Route to handle successful payments after Razorpay verification.
-    """
-    # Extract Razorpay payment details
-    payment_id = request.form.get('razorpay_payment_id')
-    order_id = request.form.get('razorpay_order_id')
-    signature = request.form.get('razorpay_signature')
+    data = request.get_json()
+    payment_id = data.get('razorpay_payment_id')
+    order_id = data.get('razorpay_order_id')
+    signature = data.get('razorpay_signature')
 
     try:
-        # Verify the payment signature
         params = {
             'razorpay_order_id': order_id,
             'razorpay_payment_id': payment_id,
@@ -81,43 +68,26 @@ def payment_success():
         }
         client.utility.verify_payment_signature(params)
 
-        # Update payment status in the database
         registration = Registration.query.filter_by(payment_order_id=order_id).first()
         if registration:
             registration.payment_status = 'completed'
             db.session.commit()
 
-        flash('Payment successful! You are registered for the event.', 'success')
-        return redirect(url_for('events_file.event_details', event_id=registration.event_id))
+        return jsonify({"message": "Payment successful!"}), 200
     except Exception as e:
-        flash(f'Payment verification failed: {e}', 'error')
-        return redirect(url_for('events_file.explore_events'))
+        current_app.logger.error(f"Payment verification failed: {e}")
+        return jsonify({"error": "Payment verification failed."}), 400
 
 
 def create_payment_order(amount, email, event_name):
-    """
-    Creates a Razorpay payment order.
-    """
     try:
         data = {
-            "amount": int(amount),  # Amount in paise
+            "amount": amount,
             "currency": "INR",
             "receipt": f"order_{email}_{event_name}",
-            "notes": {
-                "event": event_name,
-                "email": email
-            }
+            "notes": {"event": event_name, "email": email}
         }
-
-        # Create the payment order via Razorpay API
-        payment_order = client.order.create(data)
-        payment_url = f"https://checkout.razorpay.com/v1/checkout.js?order_id={payment_order['id']}"
-
-        # Return the payment order ID and URL
-        return {
-            'id': payment_order['id'],
-            'url': payment_url
-        }
+        return client.order.create(data)
     except Exception as e:
-        current_app.logger.error(f"Payment order creation failed: {e}")
+        current_app.logger.error(f"Error creating payment order: {e}")
         return None

@@ -1,12 +1,6 @@
 from flask import Blueprint, render_template, request, session, redirect, url_for, flash
 from models import db, User, Event, Registration
 from payment import create_payment_order  # Import payment order creation function
-import razorpay
-
-# Razorpay client setup (use hardcoded keys for now)
-razorpay_key_id = "rzp_test_xoGhUNgyxCjvch"
-razorpay_secret_key = "s1smm98jw7OYghenqrnfEIgT"
-client = razorpay.Client(auth=(razorpay_key_id, razorpay_secret_key))
 
 # Create Blueprint
 events_file = Blueprint('events_file', __name__, template_folder='templates')
@@ -70,7 +64,7 @@ def register_event_user():
 
     # Create a Razorpay order
     amount = int(event.fee * 100)  # Convert to paise
-    payment_order = client.order.create({'amount': amount, 'currency': 'INR', 'receipt': f'receipt_{user.id}_{event_id}'})
+    payment_order = create_payment_order({'amount': amount, 'currency': 'INR', 'receipt': f'receipt_{user.id}_{event_id}'})
 
     # Store the registration and payment order ID in the database
     new_registration = Registration(
@@ -97,4 +91,3 @@ def view_registrations():
         .all()
     )
     return render_template('view_registration.html', registrations=registrations)
-
