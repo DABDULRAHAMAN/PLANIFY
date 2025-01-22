@@ -5,13 +5,18 @@ import os
 import bcrypt
 from models import db, Event, User  # Ensure User model is imported
 from werkzeug.security import check_password_hash, generate_password_hash
+from flask import current_app
 
 # Create Blueprint
 reg_events = Blueprint('reg_events', __name__, template_folder='templates')
 
-# Set the upload folder path
+# Upload folder configuration
 UPLOAD_FOLDER = 'static/uploads'
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
+
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
 
 # Helper function to check allowed file extensions
 def allowed_file(filename):
@@ -70,38 +75,42 @@ def edit_dashboard():
 
 @reg_events.route('/update_profile', methods=['POST'])
 def update_profile():
-    user_id = session.get('id')  # Retrieve user ID from session
-    if not user_id:
-        flash("You must log in first.", "danger")
-        return redirect(url_for('auth.login'))
-
+    user_id = request.form.get('user_id')
     user = User.query.get(user_id)
+
     if not user:
         flash("User not found.", "danger")
         return redirect(url_for('reg_events.profile_dashboard'))
 
+    # Handle photo upload
+    if 'profile_photo' in request.files:
+        profile_photo = request.files['profile_photo']
+        if profile_photo and allowed_file(profile_photo.filename):
+            # Save the file securely
+            filename = secure_filename(profile_photo.filename)
+            filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+            profile_photo.save(filepath)
+
+            # Update the user's photo in the database
+            user.photo = f'uploads/{filename}'
+        else:
+            flash("Invalid file type. Please upload a valid image.", "danger")
+            return redirect(url_for('reg_events.profile_dashboard'))
+
+    # Update name
+    new_name = request.form.get('name')
+    if new_name:
+        user.name = new_name
+
     try:
-        # Update profile photo
-        if 'profile_photo' in request.files:
-            profile_photo = request.files['profile_photo']
-            if profile_photo and allowed_file(profile_photo.filename):
-                filename = secure_filename(profile_photo.filename)
-                file_path = os.path.join(UPLOAD_FOLDER, filename)
-                profile_photo.save(file_path)
-                user.photo = f'uploads/{filename}'
-
-        # Update name
-        new_name = request.form.get('name')
-        if new_name:
-            user.name = new_name
-
         db.session.commit()
         flash("Profile updated successfully.", "success")
     except Exception as e:
         db.session.rollback()
-        flash(f"Error updating profile: {str(e)}", "danger")
+        flash(f"An error occurred while updating the profile: {e}", "danger")
 
     return redirect(url_for('reg_events.profile_dashboard'))
+
 
 # Route to update password
 @reg_events.route('/update_password', methods=['POST'])
