@@ -82,17 +82,18 @@ def update_profile():
         flash("User not found.", "danger")
         return redirect(url_for('reg_events.profile_dashboard'))
 
-    # Handle photo upload
+    # Handle profile photo update
     if 'profile_photo' in request.files:
         profile_photo = request.files['profile_photo']
         if profile_photo and allowed_file(profile_photo.filename):
-            # Save the file securely
-            filename = secure_filename(profile_photo.filename)
-            filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+            # Rename the file to the user's ID and save it securely
+            filename = f"{user_id}.{profile_photo.filename.rsplit('.', 1)[1].lower()}"  # Rename as user_id.extension
+            filepath = os.path.join(UPLOAD_FOLDER, filename)
             profile_photo.save(filepath)
 
-            # Update the user's photo in the database
+            # Update the user's photo path in the database
             user.photo = f'uploads/{filename}'
+
         else:
             flash("Invalid file type. Please upload a valid image.", "danger")
             return redirect(url_for('reg_events.profile_dashboard'))

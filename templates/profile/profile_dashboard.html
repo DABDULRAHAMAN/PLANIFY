@@ -24,8 +24,8 @@
                     <!-- Left: Profile Picture -->
                     <div class="pic">
                         <img 
-                            src="{{ url_for('static', filename='uploads/' + ('default.jpeg' or user.photo) )}}" 
-                            alt="{{ user.name }}" >
+                            src="{{ url_for('static', filename=user.photo or 'uploads/default_profile.jpg') }}" 
+                            alt="{{ user.name }}">
                     </div>
                     <!-- Right: User Info -->
                     <div class="user-info">
