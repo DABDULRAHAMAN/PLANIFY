@@ -14,7 +14,7 @@ body, html {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin-top: 110px; /* Adjust to prevent overlap with navbar */
+    margin-top: 90px; /* Adjust to prevent overlap with navbar */
     padding: 0;
     overflow-y: auto; /* Enables scrolling for content overflow */
     height: auto; /* Let the content define the height */

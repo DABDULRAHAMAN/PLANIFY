@@ -296,6 +296,21 @@ footer a {
     z-index: 1000; /* Ensure it stays above other elements */
 	margin-bottom: -10px;
 }
+/* Style for the logo inside the navbar */
+.nav .logo {
+    align-items: self-start;
+    max-height: 90px; /* Increase the size of the logo */
+    display: block; /* Ensure it is displayed as a block */
+    padding: 0; /* Remove negative padding */
+    margin-top: 0; /* Remove unnecessary top margin */
+    margin-right: 10px; /* Add some left margin to separate it slightly */
+}
+
+.nav .nav-item {
+    display: flex;
+    align-items: center; /* Center it vertically */
+    justify-content: flex-start; /* Align it to the left */
+}
 
 .nav ul {
 	list-style: none;
@@ -334,15 +349,6 @@ footer a {
     font-weight: bold;
     margin-left: 20px;
     color: #333;
-}
-
-.logo {
-	position: absolute;
-	top: -55px;
-	left: -180px; /* Adjusted further to the left */
-	height: 200px; /* Increased the size for better visibility */
-	width: auto;
-	object-fit: contain;
 }
 
 /* Profile photo */
