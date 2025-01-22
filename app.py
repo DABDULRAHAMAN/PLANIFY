@@ -55,6 +55,7 @@ def index():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
+        # Retrieve form data
         name = request.form['name']
         email = request.form['email']
         password = request.form['password']
@@ -65,28 +66,33 @@ def register():
             flash('Email already exists. Please use a different email.', 'danger')
             return redirect(url_for('register'))
 
+        # Check if passwords match
         if password != confirm_password:
             flash('Passwords do not match. Please try again.', 'danger')
             return redirect(url_for('register'))
-        
-        # Create new user
-        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-        photo_path = 'default.jpg'
-
-        new_user = User(name=name, email=email, password=hashed_password, photo=photo_path)
 
         try:
+            # Hash the password securely
+            hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+            photo_path = 'default.jpg'  # Default profile photo
+
+            # Create a new user object
+            new_user = User(name=name, email=email, password=hashed_password, photo=photo_path)
+
+            # Add user to the database
             db.session.add(new_user)
             db.session.commit()
-            # flash('Registration successful! You can now log in.', 'success')
-            print("data added")
+
+            flash('Registration successful! You can now log in.', 'success')
             return redirect(url_for('login'))
-        except Exception:
+        except Exception as e:
             db.session.rollback()
-            flash('Registration failed. Please try again.', 'danger')
+            flash(f'Registration failed: {str(e)}', 'danger')
             return redirect(url_for('register'))
 
-    return render_template('index.html')  # Use a dedicated registration template
+    # Render the registration page
+    return render_template('index.html')
+
 
 
 @app.route('/login', methods=['GET', 'POST'])

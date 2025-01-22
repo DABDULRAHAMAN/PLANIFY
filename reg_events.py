@@ -2,7 +2,9 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from werkzeug.utils import secure_filename
 from datetime import datetime
 import os
+import bcrypt
 from models import db, Event, User  # Ensure User model is imported
+from werkzeug.security import check_password_hash, generate_password_hash
 
 # Create Blueprint
 reg_events = Blueprint('reg_events', __name__, template_folder='templates')
@@ -66,44 +68,85 @@ def edit_dashboard():
     # Pass the user object (or relevant data) to the template
     return render_template('profile/edit_profile.html', user=user)
 
-# Profile Update Route
 @reg_events.route('/update_profile', methods=['POST'])
 def update_profile():
-    try:
-        # Replace with logic to retrieve the logged-in user
-        user = User.query.get(1)  # Example: Fetch user with ID 1
+    user_id = session.get('id')  # Retrieve user ID from session
+    if not user_id:
+        flash("You must log in first.", "danger")
+        return redirect(url_for('auth.login'))
 
-        # Handle profile photo upload
+    user = User.query.get(user_id)
+    if not user:
+        flash("User not found.", "danger")
+        return redirect(url_for('reg_events.profile_dashboard'))
+
+    try:
+        # Update profile photo
         if 'profile_photo' in request.files:
             profile_photo = request.files['profile_photo']
             if profile_photo and allowed_file(profile_photo.filename):
                 filename = secure_filename(profile_photo.filename)
-                photo_path = os.path.join(UPLOAD_FOLDER, 'profile_photos', filename)
-                profile_photo.save(photo_path)
-                user.photo = filename  # Update photo path in the database
+                file_path = os.path.join(UPLOAD_FOLDER, filename)
+                profile_photo.save(file_path)
+                user.photo = f'uploads/{filename}'
 
-        # Update name and email
-        user.name = request.form.get('name')
-        user.email = request.form.get('email')
+        # Update name
+        new_name = request.form.get('name')
+        if new_name:
+            user.name = new_name
 
-        # Update password if provided
-        password = request.form.get('password')
-        confirm_password = request.form.get('confirm_password')
-        if password:
-            if password == confirm_password:
-                user.set_password(password)  # Ensure your User model has a set_password method
-            else:
-                flash('Passwords do not match.', 'danger')
-                return redirect(url_for('reg_events.profile_dashboard'))
-
-        # Commit changes
         db.session.commit()
-        flash('Profile updated successfully!', 'success')
+        flash("Profile updated successfully.", "success")
     except Exception as e:
         db.session.rollback()
-        flash(f'An error occurred while updating the profile: {str(e)}', 'danger')
+        flash(f"Error updating profile: {str(e)}", "danger")
 
     return redirect(url_for('reg_events.profile_dashboard'))
+
+# Route to update password
+@reg_events.route('/update_password', methods=['POST'])
+def update_password():
+    user_id = session.get('id')  # Retrieve the user ID from the session
+    if not user_id:
+        flash("You must log in first.", "danger")
+        return redirect(url_for('auth.login'))
+
+    # Fetch the user from the database
+    user = User.query.get(user_id)
+    if not user:
+        flash("User not found.", "danger")
+        return redirect(url_for('reg_events.profile_dashboard'))
+
+    # Get form data
+    current_password = request.form.get('current_password')
+    new_password = request.form.get('new_password')
+    confirm_password = request.form.get('confirm_password')
+
+    # Validate current password
+    if not bcrypt.checkpw(current_password.encode('utf-8'), user.password.encode('utf-8')):
+        flash("Current password is incorrect.", "danger")
+        return redirect(url_for('reg_events.profile_dashboard'))
+
+    # Validate new password and confirm password match
+    if new_password != confirm_password:
+        flash("New passwords do not match.", "danger")
+        return redirect(url_for('reg_events.profile_dashboard'))
+
+    # Hash and update the new password
+    hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+    user.password = hashed_password
+
+    # Commit the change
+    try:
+        db.session.commit()
+        flash("Password updated successfully.", "success")
+    except Exception as e:
+        db.session.rollback()
+        flash(f"An error occurred: {str(e)}", "danger")
+
+    return redirect(url_for('reg_events.profile_dashboard'))
+
+
 
 # Manage Event Route
 @reg_events.route('/manage_event')
