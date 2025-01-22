@@ -34,8 +34,11 @@ class Registration(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
-    phone_no = db.Column(db.Integer, nullable=False) 
+    phone_no = db.Column(db.String(15), nullable=False)  # Changed to String for flexibility
     registration_date = db.Column(db.DateTime, default=datetime.utcnow)
     remarks = db.Column(db.Text, nullable=True)
+    payment_order_id = db.Column(db.String(255), nullable=True)  # To store Razorpay order ID
+    payment_status = db.Column(db.String(50), default='pending')  # 'pending' by default
+
     __table_args__ = (db.UniqueConstraint('user_id', 'event_id', name='unique_registration'),)
 

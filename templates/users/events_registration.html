@@ -1,33 +1,116 @@
 {% extends 'base.html' %}
 
 {% block body %}
-    
-    <link rel="stylesheet" href="{{ url_for('static', filename='users/registration.css') }}">
 
-    <div class="registration-container">
-        <h1>Register for Event</h1>
-        <form action="{{ url_for('events_file.register_event_user') }}" method="POST">
-            <input type="hidden" name="event_id" value="{{ event.id }}">
-            
-            <div class="form-group">
-                <label for="name">Full Name <span class="required">*</span></label>
-                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email Address <span class="required">*</span></label>
-                <input type="email" id="email" name="email" placeholder="Enter your email address" required>
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone Number <span class="required">*</span></label>
-                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
-            </div>
-            <div class="form-group">
-                <label for="remarks">Remarks (Optional)</label>
-                <textarea id="remarks" name="remarks" placeholder="Any additional comments"></textarea>
-            </div>
-        
-            <button type="submit" class="submit-btnn">Register</button>
-        </form>        
-    </div>
+<link rel="stylesheet" href="{{ url_for('static', filename='users/registration.css') }}">
+
+<div class="registration-container">
+    <h1>Register for Event</h1>
+    <form id="registration-form" action="{{ url_for('payment.payment') }}" method="POST">
+        <input type="hidden" name="event_id" value="{{ event.id }}">
+
+        <div class="form-group">
+            <label for="name">Full Name <span class="required">*</span></label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email Address <span class="required">*</span></label>
+            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone Number <span class="required">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+        </div>
+        <div class="form-group">
+            <label for="remarks">Remarks (Optional)</label>
+            <textarea id="remarks" name="remarks" placeholder="Any additional comments"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="amount">Registration Fee (INR) <span class="required">*</span></label>
+            <input type="number" id="amount" name="amount" placeholder="Enter the amount" required>
+        </div>
+
+        <button type="submit" class="submit-btnn">Proceed to Payment</button>
+    </form>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    const form = document.getElementById('registration-form');
+
+    form.onsubmit = async function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const payload = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            phone: formData.get('phone'),
+            remarks: formData.get('remarks'),
+            amount: formData.get('amount')
+        };
+
+        try {
+            const response = await fetch("{{ url_for('payment.payment') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                alert("Failed to initiate payment. Please try again.");
+                return;
+            }
+
+            const data = await response.json();
+
+            if (data.order) {
+                const options = {
+                    key: "{{ razorpay_key_id }}",  // Pass the Razorpay Key ID
+                    amount: data.order.amount,  // Amount in paise
+                    currency: "INR",
+                    name: "Planify",  // Your company or event name
+                    description: "Event Registration Payment",
+                    order_id: data.order.id,
+                    handler: function (response) {
+                        // Post the payment details to the success route
+                        fetch("{{ url_for('payment.payment_success') }}", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                razorpay_payment_id: response.razorpay_payment_id,
+                                razorpay_order_id: response.razorpay_order_id,
+                                razorpay_signature: response.razorpay_signature
+                            })
+                        })
+                        .then(() => {
+                            alert("Payment successful!");
+                            window.location.href = "/";  // Redirect to home or confirmation page
+                        })
+                        .catch(() => {
+                            alert("Payment failed. Please try again.");
+                        });
+                    },
+                    prefill: {
+                        name: payload.name,
+                        email: payload.email,
+                        contact: payload.phone
+                    }
+                };
+
+                const rzp = new Razorpay(options);
+                rzp.open();
+            } else {
+                alert("Failed to initiate payment. Please try again.");
+            }
+        } catch (error) {
+            alert("An error occurred while processing the registration. Please try again.");
+        }
+    };
+</script>
+
 {% endblock body %}
-
