@@ -26,8 +26,10 @@ class Event(db.Model):
     short_photo = db.Column(db.String(200), nullable=True)
     long_photo = db.Column(db.String(200), nullable=True)
     registrations = db.relationship('Registration', backref='event', lazy=True)
-    is_approved = db.Column(db.Boolean, default=False)  # New column for event approval
-    creator_id = db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)  # Link to User
+    is_approved = db.Column(db.Boolean, default=False)
+    is_pending = db.Column(db.Boolean, default=True)  # Ensure this column is present
+    creator_id = db.Column(db.String(36), db.ForeignKey('user.id'), nullable=False)
+
 
 # Registration Table
 class Registration(db.Model):

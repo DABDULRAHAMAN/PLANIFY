@@ -1,0 +1,43 @@
+{% extends 'profile/profile_dashboard.html' %}
+
+{% block dashboard_content %}
+<div class="update-event-container">
+    <link rel="stylesheet" href="{{ url_for('static', filename='profile/update_event.css') }}">
+    <h2>Update Event</h2>
+    <form method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title">Event Name</label>
+            <input type="text" id="title" name="title" class="form-control" value="{{ event.title }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="short_desc">Event Short Description</label>
+            <input type="text" id="short_desc" name="short_desc" class="form-control" value="{{ event.short_desc }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Event Full Description</label>
+            <textarea id="description" name="description" class="form-control" rows="4" required>{{ event.description }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="date">Event Date & Time</label>
+            <input type="datetime-local" id="date" name="date" class="form-control" value="{{ event.date.strftime('%Y-%m-%dT%H:%M') }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="poster">Upload Event Poster</label>
+            <input type="file" id="poster" name="poster" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="banner">Upload Event Banner</label>
+            <input type="file" id="banner" name="banner" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Update Event</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

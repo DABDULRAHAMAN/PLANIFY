@@ -128,6 +128,7 @@ def dashboard():
 def logout():
     session.pop('email', None)
     # flash('You have been logged out.', 'info')
+    session.clear()  # Clear the session
     return redirect(url_for('login'))
 
 # Main entry point

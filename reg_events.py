@@ -151,10 +151,56 @@ def update_password():
 
 
 # Manage Event Route
-@reg_events.route('/manage_event')
-def user_manage_event():
-    events = Event.query.all()
-    return render_template('profile/manage_events.html', events=events)
+@reg_events.route('/manage_events')
+def manage_events():
+    # Check if the user is logged in
+    if 'id' not in session:
+        flash('Please log in to access this page.', 'warning')
+        return redirect(url_for('login'))  # Redirect to login if not logged in
+
+    # Fetch events created by the logged-in user
+    user_id = session['id']  # Get the logged-in user's ID
+    user_events = Event.query.filter_by(creator_id=user_id, is_approved=True).all()
+    
+    return render_template('profile/manage_events.html', events=user_events)
+
+@reg_events.route('/edit_event/<int:event_id>', methods=['GET', 'POST'])
+def edit_event(event_id):
+    # Fetch the event by ID
+    event = Event.query.get_or_404(event_id)
+    
+    if request.method == 'POST':
+        # Get data from the form
+        event.title = request.form['title']
+        event.short_desc = request.form['short_desc']
+        event.description = request.form['description']
+        event.date = datetime.strptime(request.form['date'], '%Y-%m-%dT%H:%M')
+
+        # Handle file uploads for poster and banner
+        poster = request.files.get('poster')
+        banner = request.files.get('banner')
+
+        if poster:
+            event.short_photo = poster.filename  # Save file or handle upload
+            poster.save(f'./static/uploads/{poster.filename}')
+
+        if banner:
+            event.long_photo = banner.filename  # Save file or handle upload
+            banner.save(f'./static/uploads/{banner.filename}')
+
+        # Mark as pending approval
+        event.is_pending = True
+        event.is_approved = False
+
+        # Commit changes to the database but do not approve yet
+        db.session.commit()
+
+        flash('Event update submitted for approval!', 'success')
+        return redirect(url_for('reg_events.manage_events'))
+
+    return render_template('profile/update_event.html', event=event)
+
+
 
 # View Event Route
 @reg_events.route('/view_event')
