@@ -75,11 +75,11 @@ def edit_dashboard():
 
 @reg_events.route('/update_profile', methods=['POST'])
 def update_profile():
-    user_id = request.form.get('user_id')
+    user_id = request.form.get('user_id')  # Assuming user_id is passed in the form
     user = User.query.get(user_id)
 
     if not user:
-        flash("User not found.", "danger")
+        flash("User not found.", "error")
         return redirect(url_for('reg_events.profile_dashboard'))
 
     # Handle profile photo update
@@ -94,23 +94,15 @@ def update_profile():
             # Update the user's photo path in the database
             user.photo = f'uploads/{filename}'
 
-        else:
-            flash("Invalid file type. Please upload a valid image.", "danger")
-            return redirect(url_for('reg_events.profile_dashboard'))
-
-    # Update name
+    # Handle name update
     new_name = request.form.get('name')
     if new_name:
         user.name = new_name
 
-    try:
-        db.session.commit()
-        flash("Profile updated successfully.", "success")
-    except Exception as e:
-        db.session.rollback()
-        flash(f"An error occurred while updating the profile: {e}", "danger")
-
+    db.session.commit()
+    flash("Profile updated successfully.", "success")
     return redirect(url_for('reg_events.profile_dashboard'))
+
 
 
 # Route to update password
