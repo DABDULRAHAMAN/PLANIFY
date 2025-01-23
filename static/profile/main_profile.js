@@ -1,18 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const changePasswordBtn = document.getElementById('change-password-btn');
-    const passwordFields = document.getElementById('password-fields');
+    const profilePhotoInput = document.getElementById('profile-photo-input');
+    const profilePhotoPreview = document.querySelector('.profile-photo');
 
-    // Initially hide the password fields
-    passwordFields.style.display = 'none';
-
-    // Toggle password fields visibility
-    changePasswordBtn.addEventListener('click', () => {
-        if (passwordFields.style.display === 'none') {
-            passwordFields.style.display = 'block';
-            changePasswordBtn.textContent = 'Cancel Password Change';
-        } else {
-            passwordFields.style.display = 'none';
-            changePasswordBtn.textContent = 'Change Password';
+    // Update profile photo preview when a new image is selected
+    profilePhotoInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                profilePhotoPreview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
         }
     });
 });

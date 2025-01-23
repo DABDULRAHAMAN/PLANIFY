@@ -134,9 +134,9 @@ body {
     width: 230px; /* Adjusted width */
     height: 230px; /* Adjusted height */
     margin-right: 20px; /* Space between picture and card content */
-    border-radius: 50%; /* Circular shape */
+    border-radius: 40%; /* Circular shape */
     overflow: hidden; /* Ensures the image fits inside the container */
-    margin-top: 70px;
+    margin-top: 100px;
 }
 
 /* Profile Picture */
@@ -144,6 +144,7 @@ body {
     width: 100%; /* Fills the container */
     height: 100%; /* Fills the container */
     object-fit: cover; /* Ensures the image covers the entire container */
+    border-radius: 40%; /* Circular shape */
 }
 
 /* User Info */

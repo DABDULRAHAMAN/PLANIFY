@@ -10,12 +10,24 @@ events_file = Blueprint('events_file', __name__, template_folder='templates')
 def explore_events():
     # Fetch only approved events
     events_list = Event.query.filter_by(is_approved=True).all()
-    return render_template('users/events.html', events=events_list)
 
-# Define the route for the About Us page
+    # Fetch the logged-in user
+    if 'email' in session:
+        user = User.query.filter_by(email=session['email']).first()
+    else:
+        user = None
+
+    return render_template('users/events.html', events=events_list, user=user)
+
+# Route: About Us page
 @events_file.route('/about-us')
 def about_us():
-    return render_template('users/contact_us.html')
+    # Fetch the logged-in user
+    if 'email' in session:
+        user = User.query.filter_by(email=session['email']).first()
+    else:
+        user = None
+    return render_template('users/contact_us.html', user=user)
 
 # Route: Display event details
 @events_file.route('/events_details/<int:event_id>', methods=['GET'])
@@ -23,6 +35,7 @@ def event_details(event_id):
     event = Event.query.get_or_404(event_id)  # Automatically handles event not found
     return render_template('users/event_details.html', event=event)
 
+# Route: Event registration page
 @events_file.route('/event_registration/<int:event_id>')
 def event_registration_page(event_id):
     event = Event.query.get(event_id)
@@ -31,6 +44,7 @@ def event_registration_page(event_id):
         return redirect(url_for('events_file.explore_events'))
     return render_template('users/events_registration.html', event=event)
 
+# Route: Register for an event
 @events_file.route('/register_event', methods=['POST'])
 def register_event_user():
     # Extract form data

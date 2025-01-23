@@ -6,6 +6,7 @@ body, html {
     height: 100%;
     margin: 0;
     padding: 0;
+    font-family: 'Lora', serif;
 }
 
 /* Main Container */
@@ -37,8 +38,8 @@ body, html {
 }
 
 .carousel-image {
-    width: 80%;
-    height: 80%;
+    width: 100%; /* Ensure the image fills the container */
+    height: 100%; /* Ensure the image fills the container */
     object-fit: cover; /* Ensures the image fills the container without distortion */
     object-position: center;
 }
@@ -129,6 +130,102 @@ footer.visible {
     color: #ff6600;
 }
 
+/* CTA Buttons */
+.cta-section {
+    margin: 10px 10px 50px 10px;
+}
+
+.cta-buttons .btn {
+    height: 80px;
+    width: 200px;
+    padding: 10px 40px;
+    font-size: 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.3s ease; /* Smooth transition for all properties */
+    position: relative;
+    overflow: hidden; /* Ensures the animation stays within the button */
+    animation: pulse 2s infinite; /* Pulse animation */
+}
+
+.cta-buttons .btn-primary {
+    background: linear-gradient(45deg, #d9534f, #c9302c); /* Reddish gradient */
+    color: white;
+    border: none;
+}
+
+.cta-buttons .btn-secondary {
+    background: linear-gradient(45deg, #333, #222); /* Dark gradient */
+    color: white;
+    border: none;
+}
+
+/* Hover Effects */
+.cta-buttons .btn:hover {
+    transform: translateY(-3px); /* Move button up slightly */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Add a shadow */
+    animation: none; /* Stop pulse animation on hover */
+}
+
+.cta-buttons .btn-primary:hover {
+    background: linear-gradient(45deg, #c9302c, #d9534f); /* Reverse gradient on hover */
+}
+
+.cta-buttons .btn-secondary:hover {
+    background: linear-gradient(45deg, #222, #333); /* Reverse gradient on hover */
+}
+
+/* Ripple Effect on Click */
+.cta-buttons .btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent white */
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+.cta-buttons .btn:active::after {
+    width: 200px; /* Expand the ripple */
+    height: 200px;
+    opacity: 0; /* Fade out the ripple */
+}
+
+/* Button Container */
+.button-container {
+    display: flex;
+    justify-content: center; /* Center buttons horizontally */
+    gap: 28px; /* Space between buttons */
+    margin-bottom: -4px; /* Space between rows */
+}
+
+/* Buttons */
+
+.button-container .btn {
+    flex: 1; /* Distribute space equally between buttons */
+    max-width: 200px; /* Set a max width for buttons */
+    max-height: 60px; /* Set a fixed height for buttons */
+    text-align:center; /* Center text inside buttons */
+    padding-top: 16px; /* Add padding to center text vertically */
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .carousel {
@@ -136,12 +233,29 @@ footer.visible {
         height: 300px; /* Adjusted height for better appearance */
     }
 
+    .carousel-image {
+        height: 100%; /* Ensure the image fills the container */
+    }
+
     .details-section {
         width: 95%; /* Almost full width for smaller screens */
         padding: 20px;
     }
 
+    .about-heading {
+        font-size: 24px; /* Smaller font size for mobile */
+    }
+
+    .details-section p {
+        font-size: 14px; /* Smaller font size for mobile */
+    }
+
     .footer-content {
         font-size: 12px; /* Smaller text for compact design */
+    }
+
+    .cta-buttons .btn {
+        padding: 8px 16px; /* Smaller padding for mobile */
+        font-size: 14px; /* Smaller font size for mobile */
     }
 }
